@@ -17,7 +17,12 @@
 //
 // 
 
+/*
+1) tested if there is no I/O burst time which should result in 100% cpu utilization
 
+
+
+*/
 void firstComeFirstServe(Process process[], TimeIndex timeIndex[]) {
     clock_t cpuStartTime = 0, 
             cpuEndTime = 0, 
@@ -62,43 +67,6 @@ for(int i = 0; i < ARR_SIZE; i++ ) {
    
 }
 
-// void firstComeFirstServe(Process process[], TimeIndex timeIndex[]) {
-    
-//     int i = 0;
-//     // CPU start time per process
-//     clock_t cpuStart = 0, 
-//             cpuEnd = 0, 
-//             cpuTime = 0,
-//             ioStart = 0,
-//             ioEnd = 0,
-//             ioTime = 0;
-    
-//     while (process[i].cpu_burst_time > 0  && i < ARR_SIZE)
-//     {
-//         cpuStart = clock();
-//         process[i].cpu_burst_time--;
-//         if (process[i].cpu_burst_time == 0)
-//         {
-    
-//             cpuEnd = clock();
-//             cpuTime = cpuEnd - cpuStart;
-//             //stop cput time
-//             while (process[i].io_burst_time > 0)
-//              {
-//                 ioStart = clock();
-//                 process[i].io_burst_time--;
-//              }
-
-//             ioEnd = clock();
-//             ioTime = ioEnd - ioStart;
-//             //timeIndex[i].processId = process[i].processId;
-//             //timeIndex[i].cpuBurstTime = cpuTime;
-//             //timeIndex[i].ioBurst_time = ioTime;
-//             i++;
-//         }
-//     }
- 
-// }
 
 
 void shortestJobFirst(Process process[]) {
