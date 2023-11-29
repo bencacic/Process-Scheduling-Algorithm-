@@ -17,6 +17,7 @@
 //
 // 
 
+
 void firstComeFirstServe(Process process[], TimeIndex timeIndex[]) {
     clock_t cpuStartTime = 0, 
             cpuEndTime = 0, 
