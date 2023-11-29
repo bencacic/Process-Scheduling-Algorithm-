@@ -5,22 +5,21 @@
     File Name: scheduling.h
     Purpose use: Store scheduling algorithms
 */
-#ifndef SCHEDULING_C
-#define SCHEDULING_C
+#ifndef SCHEDULING_H
+#define SCHEDULING_H
 
-const ARR_SIZE = 10;
-
+#include "mylib.h"
 #include "processes.h"
 #include "timeControl.h"
 
-void firstComeFirstServe(Process procecess[], int arr_size, TimeIndex timeIndex[]);
+void firstComeFirstServe(Process procecess[], TimeIndex timeIndex[]);
 
-void shortestJobFirst(Process procecess[], int arr_size);
+void shortestJobFirst(Process procecess[]);
 
-void shortestRemainingTimeFirst(Process procecess[], int arr_size);
+void shortestRemainingTimeFirst(Process procecess[]);
 
-void roundRobin(Process procecess[], int arr_size);
+void roundRobin(Process procecess[]);
 
-void priorityScheduling(Process procecess[], int arr_size);
+void priorityScheduling(Process procecess[]);
 
 #endif

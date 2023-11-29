@@ -1,19 +1,29 @@
-#ifndef TIME_C
-#define TIME_C
+#ifndef TIMECONTROL_H
+#define TIMECONTROL_H
 
-#include "processes.h"
-#include "scheduling.h"
+#include "mylib.h"
 
-int CPU_utilization(int cpuTimeSum, const int nCores, int wallTimeSum);
+typedef struct {
+    int startTime;
+    int waitingTime;
+    int cpuBurstTime;
+    int ioBurstTime;
+    int timeFirstStarted ;
+    int totalBurstTime;
+    int wallTime;
+} TimeIndex;
 
-int throughput();
+float CPU_utilization(int cpuTimeSum, int wallTimeSum);
 
-int turnaround_time();
+// int throughput();
 
-int waiting_time();
+// int turnaround_time();
 
-int response_time();
+float totalBurstTime(int totalWaitTime);
+
+// int response_time();
 
 void retrieve_time_totals(TimeIndex timeIndex[], int *total_CPU_time, int *total_wall_time, int *total_burst_time);
 
+void initTimeIndex(TimeIndex timeIndex[]);
 #endif

@@ -5,19 +5,11 @@
     File Name: processes.h
     Purpose use: Store the information of the processes
 */
-#ifndef PROCESSES_C
-#define PROCESSES_C
+#ifndef PROCESSES_H
+#define PROCESSES_H
 
-#include "timeControl.h"
-#include "scheduling.h"
+#include "mylib.h"
 
-typedef struct {
-    int startTime;
-    int waitingTime;
-    int cpuBurstTime;
-    int ioBurstTime;
-    int timeFirstStarted ;
-} TimeIndex;
 
 typedef struct {
     int process_id;
@@ -31,6 +23,5 @@ typedef struct {
 
 void initProcesses(Process process[]);
 
-void initTimeIndex(TimeIndex timeIndex[]);
 
 #endif
