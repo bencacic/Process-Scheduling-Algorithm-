@@ -8,9 +8,8 @@
 #ifndef PROCESSES_C
 #define PROCESSES_C
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include "timeControl.h"
+#include "scheduling.h"
 
 typedef struct {
     int startTime;
@@ -30,7 +29,7 @@ typedef struct {
     int priority;  
 } Process;
 
-void initPorcesses();
+void initProcesses(Process process[]);
 
 void initTimeIndex(TimeIndex timeIndex[]);
 

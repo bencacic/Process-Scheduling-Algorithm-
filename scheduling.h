@@ -7,7 +7,11 @@
 */
 #ifndef SCHEDULING_C
 #define SCHEDULING_C
-#include "PROCESSES.H"
+
+const ARR_SIZE = 10;
+
+#include "processes.h"
+#include "timeControl.h"
 
 void firstComeFirstServe(Process procecess[], int arr_size, TimeIndex timeIndex[]);
 

@@ -5,10 +5,7 @@
     File Name: scheduling.c
     Purpose use: Store scheduling algorithms
 */
-#include <stdio.h>
 #include "scheduling.h"
-#include "processes.h"
-
 
 //initialize process aray
 //startr clock to nanosec

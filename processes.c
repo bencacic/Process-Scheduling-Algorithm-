@@ -5,14 +5,11 @@
     File Name: processes.c
     Purpose use: Store the information of the processes
 */
-
-const ARR_SIZE = 10;
 #include "processes.h"
 
+const ARR_SIZE = 10;
 
-//Process process[ARR_SIZE];
-
-void initPorcesses(Process process[]){
+void initProcesses(Process process[]){
     int max = 20;
     int maxIO = 80;
     int min = 1;
