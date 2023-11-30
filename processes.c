@@ -20,6 +20,9 @@ void initProcesses(Process process[]){
         process[i].arrival_time = 0;
         process[i].priority = 0 ; 
         process[i].remaining_time = 0;   
+        for (int j = 0; j < 4; j++) {
+            process[i].prevBursts[j] = 0; // these values should be close to the cpu burst time
+        }
     }
     return;
 }

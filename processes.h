@@ -19,10 +19,10 @@ typedef struct {
     int io_burst_time;
     int remaining_time;
     int priority;  
+    int prevBursts[4];
 } Process;
 
 void initProcesses(Process process[]);
 
-//hey
 
 #endif

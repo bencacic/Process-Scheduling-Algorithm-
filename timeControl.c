@@ -5,21 +5,29 @@ float CPU_utilization(int cpuTimeSum, int wallTimeSum) {
     printf("%d",cpuTimeSum);
     printf("\n%d",wallTimeSum);
 */
-    printf("cputTimeSum = %d", cpuTimeSum);
-    printf(" and wallTimeSum = %d", wallTimeSum);
+   // printf("cputTimeSum = %d", cpuTimeSum);
+   // printf(" and wallTimeSum = %d", wallTimeSum);
     float utilization = ((float)cpuTimeSum/CORES) / (float)wallTimeSum;
     //utilization = (float)utilization / CLOCKS_PER_SEC;
     //printf("\n%f",utilization * 100);
     return utilization * 100;
 }
 
-// int throughput(TimeIndex timeIndex[]) {
-//     return 1;
-// }
+float throughPut(int wallTimeSum) {
+    float throughput = (float)ARR_SIZE / (float)wallTimeSum;
+    return throughput;
+}
 
-// int turnaround_time(TimeIndex timeIndex[]) {
-//     return 1;
-// }
+float waitingTime(int waitTimeSum) {
+
+    float waitingTime = ((float)waitTimeSum / (float)ARR_SIZE) / CLOCKS_PER_SEC;
+    return waitingTime;
+}
+
+float turnaround_time(int process_start_time, int wallTimeSum) {
+    float turnaroundtime = (float)(wallTimeSum - process_start_time)/(float)ARR_SIZE;
+    return turnaroundtime;
+}
 
 //check total burst time
 float totalBurstTime(int totalWaitTime) {
@@ -29,23 +37,30 @@ float totalBurstTime(int totalWaitTime) {
     return average;
 }
 
-// int response_time(TimeIndex timeIndex[]) {
-//     return 1;
-// }
+float response_time(int totalWaitTime) {
+ float responseTime = ((float)totalWaitTime / (float)ARR_SIZE) / CLOCKS_PER_SEC;
+    return responseTime;
+    }
 
 // Retrieves sum of any desired value. PBR so that we only loop through one time.
-void retrieve_time_totals(TimeIndex timeIndex[], int *total_CPU_time, int *total_wall_time, int *total_burst_time) {
-    int cpuSum, burstSum, wallSum = 0;
+void retrieve_time_totals(TimeIndex timeIndex[], int *total_CPU_time, int *total_wall_time, int *total_burst_time, int *process_start_time, int *total_wait_time,
+    int *total_response_time) {
+    int cpuSum, burstSum, wallSum, processStart, waitSum = 0;
     for(int i = 0; i < ARR_SIZE; i++) {
         cpuSum += timeIndex[i].cpuBurstTime;
         wallSum += timeIndex[i].wallTime;
         burstSum += (timeIndex[i].cpuBurstTime + timeIndex[i].ioBurstTime);
+        processStart += timeIndex[i].startTime;
+        waitSum += timeIndex[i].waitingTime;
        //burstSum += timeIndex[i].ioBurstTime;
     }
 
     *total_CPU_time = cpuSum;
     *total_wall_time = wallSum;
     *total_burst_time = burstSum; // + waiting time
+    *process_start_time = processStart;
+    *total_wait_time = waitSum;
+    *total_response_time = waitSum;
     return;
 }
 void initTimeIndex(TimeIndex timeIndex[])
@@ -59,6 +74,7 @@ void initTimeIndex(TimeIndex timeIndex[])
         timeIndex[index].waitingTime = 0;
         timeIndex[index].totalBurstTime = 0;
         timeIndex[index].wallTime = 0;
+
     }
     return;
 }
