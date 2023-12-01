@@ -16,7 +16,7 @@ void runfirstComeFirstServe(Process procecess[], TimeIndex timeIndex[]);
     // initProcesses(process);
     // initTimeIndex(timeIndex);
 
-const int  FCFS_ALGORITHM = 1;
+const int FCFS_ALGORITHM = 1;
 const int SHORTEST_JOB_FIRST = 2;
 const int SHORTEST_REMAIN_TIME = 3;
 const int ROUND_ROBIN = 4;

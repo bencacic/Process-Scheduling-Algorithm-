@@ -6,11 +6,8 @@
 typedef struct {
     int startTime;
     int waitingTime;
-    int cpuBurstTime;
-    int ioBurstTime;
-    int timeFirstStarted ;
-    int totalBurstTime;
-    int wallTime;
+    int burstTime;
+  //  int wallTime;
 } TimeIndex;
 
 float CPU_utilization(int cpuTimeSum, int wallTimeSum);

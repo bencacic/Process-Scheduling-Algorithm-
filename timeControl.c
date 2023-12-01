@@ -47,12 +47,10 @@ void retrieve_time_totals(TimeIndex timeIndex[], int *total_CPU_time, int *total
     int *total_response_time) {
     int cpuSum, burstSum, wallSum, processStart, waitSum = 0;
     for(int i = 0; i < ARR_SIZE; i++) {
-        cpuSum += timeIndex[i].cpuBurstTime;
         wallSum += timeIndex[i].wallTime;
-        burstSum += (timeIndex[i].cpuBurstTime + timeIndex[i].ioBurstTime);
+        burstSum += timeIndex[i].burstTime;
         processStart += timeIndex[i].startTime;
         waitSum += timeIndex[i].waitingTime;
-       //burstSum += timeIndex[i].ioBurstTime;
     }
 
     *total_CPU_time = cpuSum;
@@ -67,13 +65,12 @@ void initTimeIndex(TimeIndex timeIndex[])
 {
     for (int index = 0; index < ARR_SIZE; index++)
     {
-        timeIndex[index].ioBurstTime = 0;
-        timeIndex[index].cpuBurstTime = 0;
-        timeIndex[index].startTime = 0;
-        timeIndex[index].timeFirstStarted = 0;
-        timeIndex[index].waitingTime = 0;
-        timeIndex[index].totalBurstTime = 0;
-        timeIndex[index].wallTime = 0;
+        timeIndex[index].burstTime = -1;
+        timeIndex[index].startTime = -1;
+       // timeIndex[index].timeFirstStarted = 0;
+        timeIndex[index].waitingTime = -1;
+       // timeIndex[index].totalBurstTime = 0;
+      //  timeIndex[index].wallTime = 0;
 
     }
     return;

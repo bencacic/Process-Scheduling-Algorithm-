@@ -10,19 +10,21 @@
 
 #include "mylib.h"
 
-
 typedef struct {
     int process_id;
     int arrival_time;
-    int cpu_burst_time;
-    //how it is going be interrupted
-    int io_burst_time;
-    int remaining_time;
+    int burst_time;
     int priority;  
     int prevBursts[4];
 } Process;
 
 void initProcesses(Process process[]);
+
+int compareArrivalTime(const void *a, const void *b);
+int compareShortestTime (const void *a, const void *b);
+int comparePriority (const void *a, const void *b);
+         
+void readyQueue (Process process[], int choice);
 
 
 #endif
