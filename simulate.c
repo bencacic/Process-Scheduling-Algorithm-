@@ -76,8 +76,8 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice){
     readyQueue(procecess, choice);
     if (choice == 1){
         wallTime = firstComeFirstServe(procecess, timeIndex);
-    }else if (choice == 5){  
-        priorityFlag = 1;
+    }else if (choice == 2){  
+      wallTime = shortestJobFirst( procecess, timeIndex);
     }
     
 
@@ -112,7 +112,7 @@ void menu() {
         printf("3) Shortest Remaining Time First\n");
         printf("4) Round Robin\n");
         printf("5) Priority Scheduling\n");
-        printf("6) To view all all\n");
+        printf("6) To view all algorithms\n");
         printf("To terminate the program, please enter -1\n");
 
         printf("Enter your choice here (options 1 to 5, or -1 to terminate): ");

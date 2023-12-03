@@ -17,6 +17,7 @@ typedef struct {
     int priority;  
     int actualStart;
     float estimatedBurstTime;
+    int completed;
     int prevBursts[4];
 } Process;
 

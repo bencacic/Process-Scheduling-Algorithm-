@@ -22,6 +22,7 @@ void initProcesses(Process process[]){
         process[i].priority = (rand() % (12 - 0 + 1)) + 0; 
         process[i].arrival_time = (rand() % (maxArrival - minArrival + 1)) + minArrival; // between 30 to 
         process[i].actualStart = -1;
+        process[i].completed = -1;
         process[i].estimatedBurstTime = -1;
         for (int j = 0; j < 4; j++) {
             process[i].prevBursts[j] =  (rand() % ( process[i].burst_time - min + 1)) + min; // these values should be close to the cpu burst time
@@ -59,7 +60,8 @@ void readyQueue (Process process[], int choice) {
     else if (choice == 2) // shortest job first
     {
         estimateBurstTime(process);
-        sort_SJB(process);
+        sort_FCFS (process);
+        //sort_SJB(process);
     }
     else if (choice == 3) // shortest reaming time
     {

@@ -60,7 +60,7 @@ void makeGantChart(Process process[])
         printf(" ");
         for (int j = 0; j < scale[i] + 2; j++)
         {
-            prinf(BOLD CYN);
+            printf(BOLD CYN);
             printf("--");
         }
     }

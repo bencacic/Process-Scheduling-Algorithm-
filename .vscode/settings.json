@@ -61,7 +61,11 @@
     "processes.h": "c",
     "mylib.h": "c",
     "stdlib.h": "c",
-    "timecontrol.h": "c"
+    "timecontrol.h": "c",
+    "__bit_reference": "c",
+    "bitset": "c",
+    "unordered_map": "c",
+    "chrono": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 }
