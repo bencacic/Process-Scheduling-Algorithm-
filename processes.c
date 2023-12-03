@@ -173,4 +173,18 @@ void estimateBurstTime(Process process[]) {
     return;
 }         
 
+void emptyQueue(Process process[]) {
+    for (int i = 0; i < ARR_SIZE; i++) {
+        process[i].process_id = -1;
+        process[i].burst_time = -1;
+        process[i].priority = -1;
+        process[i].arrival_time = -1;
+        process[i].actualStart = -1;
+        process[i].completed = -1;
+        process[i].estimatedBurstTime = -1;
+        for (int j = 0; j < 4; j++) {
+            process[i].prevBursts[j] = -1;
+        }
+        } 
+    }
 

@@ -74,63 +74,30 @@ int firstComeFirstServe(Process process[], TimeIndex timeIndex[]) {
         return time;
 }
 
-int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
-  int time = 0;
-  int flag = 0;
-  int i ,k ,j;
-  int counter = 0;
-  int counter1 = 0;
-  Process temp[ARR_SIZE];
-
-
-    for (int i = 0; ARR_SIZE < 20; i++)
-    {
-        // if(process[i + 1].arrival_time == process[i].arrival_time){
-        temp[i] = process[i];
-    }
-   // sorted by arrival time process
-    sort_SJB(temp); //temp is sorted bassed on the expected burst time
-    //if process[i].arr
-
-    for (i = 0; counter < 20; i++) {
-        // if more than one process is in the ready queue, decide using using process[i].expectedBurst which to run
-            for (j = 0; j < ARR_SIZE; j++) {
-                k = i;
-                if (temp[j].arrival_time <= time && process[i].completed == -1) {
-                    if (temp[j].process_id == process[k].process_id)
-                    {
-                        /* code */
-                        flag = 1;
-                        break;
-                    }else{
-                        for (k = i + 1; k < ARR_SIZE; k++)
-                        {
-                            if (temp[j].process_id == process[k].process_id){
-                                flag = 1;
-                                 break;
-                            }
-                        }
-                        if (flag) {
-                         break;
-                            }
-                    }
-                }
-            }
-
-            if (flag)
-            {
-                   
+int firstComeFirstServe(Process process[], TimeIndex timeIndex[]) {
+    int time = 0;
+    int i;
+    //processes will be passed in sorted by arrival time.
+   // uti = allof cpu time / burst time // burst time is the time where the cpu is busy
+        for (i = 0; i < ARR_SIZE; i++) {
              int arrivalTime = process[i].arrival_time;
            // printf("arrival time %d\n" ,arrivalTime);
+
+            // if (arrivalTime > time) {
                 timeIndex[i].waitingTime = abs(arrivalTime - time);
-       
+            //  }
+            //  else 
+            //  {
+            //       timeIndex[i].waitingTime = 0;
+            //  }
+
             while (arrivalTime > time)
             {
                 time++;
             }
             timeIndex[i].startTime = time;
-            process[k].actualStart = time;
-            int burstTime = process[k].burst_time;
+            process[i].actualStart = time;
+            int burstTime = process[i].burst_time;
            // printf("burst time %d\n" ,burstTime);
 
             while(burstTime > 0) {
@@ -138,26 +105,205 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
                 time++;
             }
             timeIndex[i].burstTime = time - timeIndex[i].startTime;
-            process[k].completed = 0;
-            }else{
-                time++;
+           // timeIndex[i].arrivalTime = arrivalTime;
+           
+        }
+        //  printf("Time time 2  %d and %d and %d\n" , process[0].arrival_time, timeIndex[0].startTime, timeIndex[0].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[1].arrival_time, timeIndex[1].startTime, timeIndex[1].waitingTime);
+
+        //  printf("Time time 2  %d and %d and %d\n" , process[2].arrival_time, timeIndex[2].startTime, timeIndex[2].waitingTime);
+
+        //  printf("Time time 2  %d and %d and %d\n" , process[3].arrival_time, timeIndex[3].startTime, timeIndex[3].waitingTime);
+        //   printf("Time time 2  %d and %d and %d\n" , process[4].arrival_time, timeIndex[4].startTime, timeIndex[4].waitingTime);
+
+        // printf("Time time 2  %d and %d and %d\n" , process[5].arrival_time, timeIndex[5].startTime, timeIndex[5].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[6].arrival_time, timeIndex[6].startTime, timeIndex[6].waitingTime);
+     
+        //  printf("Time time 2  %d and %d and %d\n" , process[7].arrival_time, timeIndex[7].startTime, timeIndex[7].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[8].arrival_time, timeIndex[8].startTime, timeIndex[8].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[9].arrival_time, timeIndex[9].startTime, timeIndex[9].waitingTime);
+        
+        return time;
+}
+
+int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
+  int time = 0;
+  int flag = 0;
+  int i = 0;
+  //int k, j;
+  int counter = 0;
+  int counter1 = 0;
+  Process readyQueue[ARR_SIZE];
+
+  int processes_remaining = ARR_SIZE;
+
+  while (processes_remaining > 0) {
+    if (process[i].arrival_time <= time) {  // processes have arrived in the ready queue
+        for (int j = 0; j < ARR_SIZE; j++) { // temp array is being filled with non-completed, arrived processes
+            if ((process[j].arrival_time <= time) && process[j].completed == -1) {
+                readyQueue[j] = process[j]; // ready queue ONLY contains currently executable processes
             }
+        }
+        sort_SJB(readyQueue); // executable processes are being sorted by lowest estimated burst length
+        // This means that readyQueue[0] is updated every time the while loop completes, and is ideal process to execute
+
+        for (int k = 0; k < ARR_SIZE; k++) {
+            if (readyQueue[0].process_id == process[k].process_id) // look for the process_id in the process array that matches the desired ready queue element 
+            {
+                // it is found so the process is executed
+                timeIndex[i].startTime = time;
+                process[k].actualStart = time;
+                int burstTime = process[k].burst_time;
+
+                while(burstTime > 0) {
+                    burstTime--;
+                    time++;
+                }
+            }
+        }
+    
+        emptyQueue(readyQueue);
+        processes_remaining--; // decrement processes remaining because one was successfully ran
+    }
+    else {
+        time++;     // no processes are in the ready queue so time just increases
+    }
+        i++;    // increment i to move on to the next element. Not sure if that first for loop is even necessary
+    
+    }
+
+    return time;
+}
+
+
+
+// int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
+//   int time = 0;
+//   int flag = 0;
+//   int i = 0;
+//   //int k, j;
+//   int counter = 0;
+//   int counter1 = 0;
+//   Process readyQueue[ARR_SIZE];
+
+// // jey
+
+//   int processes_remaining = ARR_SIZE;
+
+//   while (processes_remaining > 0) {
+//     if (process[i].arrival_time <= time) {  // processes have arrived in the ready queue
+//         for (int j = 0; j < ARR_SIZE; j++) { // temp array is being filled with non-completed, arrived processes
+//             if ((process[j].arrival_time <= time) && process[j].completed == -1) {
+//                 readyQueue[j] = process[j]; // ready queue ONLY contains currently executable processes
+//             }
+//         }
+//         sort_SJB(readyQueue); // executable processes are being sorted by lowest estimated burst length
+//         // This means that readyQueue[0] is updated every time the while loop completes, and is ideal process to execute
+
+//         for (int k = 0; k < ARR_SIZE; k++) {
+//             if (readyQueue[0].process_id == process[k].process_id) // look for the process_id in the process array that matches the desired ready queue element 
+//             {
+//                 // it is found so the process is executed
+//                 timeIndex[i].startTime = time;
+//                 process[k].actualStart = time;
+//                 int burstTime = process[k].burst_time;
+
+//                 while(burstTime > 0) {
+//                     burstTime--;
+//                     time++;
+//                 }
+//             }
+//         }
+//         processes_remaining--; // decrement processes remaining because one was successfully ran
+//     }
+//     else {
+//         time++;     // no processes are in the ready queue so time just increases
+//     }
+//         i++;    // increment i to move on to the next element. Not sure if that first for loop is even necessary
+    
+//     }
+
+//     return time;
+// }
+
+
+
+
+//     for (int i = 0; ARR_SIZE < 20; i++)
+//     {
+//         // if(process[i + 1].arrival_time == process[i].arrival_time){
+//         temp[i] = process[i];
+//     }
+//    // sorted by arrival time process
+//     sort_SJB(temp); //temp is sorted bassed on the expected burst time
+//     //if process[i].arr
+
+//     for (i = 0; counter < 20; i++) {
+//         // if more than one process is in the ready queue, decide using using process[i].expectedBurst which to run
+//             for (j = 0; j < ARR_SIZE; j++) {
+//                 k = i;
+//                 if (temp[j].arrival_time <= time && process[i].completed == -1) {
+//                     if (temp[j].process_id == process[k].process_id)
+//                     {
+//                         /* code */
+//                         flag = 1;
+//                         break;
+//                     }else{
+//                         for (k = i + 1; k < ARR_SIZE; k++)
+//                         {
+//                             if (temp[j].process_id == process[k].process_id){
+//                                 flag = 1;
+//                                  break;
+//                             }
+//                         }
+//                         if (flag) {
+//                          break;
+//                             }
+//                     }
+//                 }
+//             }
+
+//             if (flag)
+//             {
+                   
+//              int arrivalTime = process[i].arrival_time;
+//            // printf("arrival time %d\n" ,arrivalTime);
+//                 timeIndex[i].waitingTime = abs(arrivalTime - time);
+       
+//             while (arrivalTime > time)
+//             {
+//                 time++;
+//             }
+//             timeIndex[i].startTime = time;
+//             process[k].actualStart = time;
+//             int burstTime = process[k].burst_time;
+//            // printf("burst time %d\n" ,burstTime);
+
+//             while(burstTime > 0) {
+//                 burstTime--;
+//                 time++;
+//             }
+//             timeIndex[i].burstTime = time - timeIndex[i].startTime;
+//             process[k].completed = 0;
+//             }else{
+//                 time++;
+//             }
             
        
-            if (process[i].completed == -1)
-            {
-               i = 0;
-            }
-            flag = 0;
-            counter++;
-            // if (counter == 80)
-            // {
-            //     i = 0;
-            // }
+//             if (process[i].completed == -1)
+//             {
+//                i = 0;
+//             }
+//             flag = 0;
+//             counter++;
+//             // if (counter == 80)
+//             // {
+//             //     i = 0;
+//             // }
             
 
            
-        }
+        // }
 
 
 
@@ -191,9 +337,9 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
     //      printf("temp time 8 process_id %d and startTime %d and estimatedBurstTime %f\n" , temp[8].process_id, temp[8].arrival_time, temp[8].estimatedBurstTime);
     //      printf("temp time 9 process_id %d and startTime %d and estimatedBurstTime %f\n" , temp[9].process_id, temp[9].arrival_time, temp[9].estimatedBurstTime);
         
-        return time;
+//         return time;
 
-}
+// }
 
 void shortestRemainingTimeFirst(Process process[]) {
     
