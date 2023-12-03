@@ -60,7 +60,6 @@ void retrieve_time_totals(TimeIndex timeIndex[], int *total_burst_time, int *pro
         burstSum += timeIndex[i].burstTime;
         processStart += timeIndex[i].startTime;
         waitSum = waitSum + timeIndex[i].waitingTime;
-        printf("\nwaitSum %d\n", waitSum);
     }
 
  // dont need this here anymore. Can leave it for now though.
