@@ -17,11 +17,12 @@ void initProcesses(Process process[]){
     int minArrival = 0;
     srand(time(0));
     for (int i = 0; i < ARR_SIZE; ++i) {
-        process[i].process_id = i + 100; // Assign some values as an example
+        process[i].process_id = i; // Assign some values as an example
         process[i].burst_time = (rand() % (max - min + 1)) + min; //max burst time 50 // 
         process[i].priority = (rand() % (12 - 0 + 1)) + 0; 
         process[i].arrival_time = (rand() % (maxArrival - minArrival + 1)) + minArrival; // between 30 to 
         process[i].actualStart = -1;
+        process[i].estimatedBurstTime = -1;
         for (int j = 0; j < 4; j++) {
             process[i].prevBursts[j] =  (rand() % ( process[i].burst_time - min + 1)) + min; // these values should be close to the cpu burst time
         }
@@ -57,6 +58,7 @@ void readyQueue (Process process[], int choice) {
     }
     else if (choice == 2) // shortest job first
     {
+        estimateBurstTime(process);
         sort_SJB(process);
     }
     else if (choice == 3) // shortest reaming time
@@ -136,13 +138,16 @@ int compareSJF(const void *a, const void *b) {
     const Process *processA = (const Process *)a;
     const Process *processB = (const Process *)b;
 
-    for(int i = 0; i < 4; i++) {
-        int exponAveA = processA-> prevBursts[i];
-        int exponAveB = processB-> prevBursts[i];    
-    }
-    //return processA  - processB-> priority;
+    float diff = processA->estimatedBurstTime - processB->estimatedBurstTime;
 
-   return 0;
+    // Use a small epsilon value to handle precision issues
+    if (fabs(diff) < 0.0001) {
+        return 0;  // Consider them equal
+    } else if (diff < 0) {
+        return -1;
+    } else {
+        return 1;
+    }         
    }
 
 int comparePriority (const void *a, const void *b) {
@@ -151,6 +156,19 @@ int comparePriority (const void *a, const void *b) {
     return processA-> priority - processB-> priority;
 }
 
-         
+void estimateBurstTime(Process process[]) {
+
+    float alpha = 0.5;
+
+    for(int i = 0; i < ARR_SIZE; i++){
+        float current_value = process[i].prevBursts[0] * alpha;
+        for (int j = 1; j < 4; j++) {
+            current_value = alpha * process[i].prevBursts[j] * (1 - alpha) + current_value;
+        }
+    process[i].estimatedBurstTime = current_value;
+    }
+
+    return;
+}         
 
 

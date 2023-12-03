@@ -21,4 +21,6 @@ void roundRobin(Process procecess[]);
 
 void priorityScheduling(Process procecess[]);
 
+int findIndex(const Process *arr, int size, int searchId);
+
 #endif

@@ -2,13 +2,14 @@
 #define TIMECONTROL_H
 
 #include "mylib.h"
+#include "processes.h"
 
 typedef struct {
     int pid;
     int startTime;
     int waitingTime;
     int burstTime;
-    int estimatedBurstTime;
+    
 } TimeIndex;
 
 float CPU_utilization(int cpuTimeSum, int wallTimeSum);
@@ -20,7 +21,7 @@ float throughPut(int wallTimeSum);
 
 float waitingTime(int waitTimeSum);
 
-float turnaround_time(int burstSum);
+float turnaround_time(int burstSum, int waitingTime);
 
 // float totalBurstTime(int totalWaitTime);
 

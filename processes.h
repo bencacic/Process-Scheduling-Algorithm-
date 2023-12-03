@@ -16,6 +16,7 @@ typedef struct {
     int burst_time;
     int priority;  
     int actualStart;
+    float estimatedBurstTime;
     int prevBursts[4];
 } Process;
 
@@ -29,5 +30,7 @@ void sort_FCFS (Process process[]);
 void sort_RR ();
 void sort_PR(Process process[]);
 void sort_SJB (Process process[]);
+void estimateBurstTime(Process process[]);
+
 
 #endif

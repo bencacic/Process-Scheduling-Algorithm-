@@ -56,37 +56,29 @@ int firstComeFirstServe(Process process[], TimeIndex timeIndex[]) {
            // timeIndex[i].arrivalTime = arrivalTime;
            
         }
-         printf("Time time 2  %d and %d and %d\n" , process[0].arrival_time, timeIndex[0].startTime, timeIndex[0].waitingTime);
-          printf("Time time 2  %d and %d and %d\n" , process[1].arrival_time, timeIndex[1].startTime, timeIndex[1].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[0].arrival_time, timeIndex[0].startTime, timeIndex[0].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[1].arrival_time, timeIndex[1].startTime, timeIndex[1].waitingTime);
 
-         printf("Time time 2  %d and %d and %d\n" , process[2].arrival_time, timeIndex[2].startTime, timeIndex[2].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[2].arrival_time, timeIndex[2].startTime, timeIndex[2].waitingTime);
 
-         printf("Time time 2  %d and %d and %d\n" , process[3].arrival_time, timeIndex[3].startTime, timeIndex[3].waitingTime);
-          printf("Time time 2  %d and %d and %d\n" , process[4].arrival_time, timeIndex[4].startTime, timeIndex[4].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[3].arrival_time, timeIndex[3].startTime, timeIndex[3].waitingTime);
+        //   printf("Time time 2  %d and %d and %d\n" , process[4].arrival_time, timeIndex[4].startTime, timeIndex[4].waitingTime);
 
-        printf("Time time 2  %d and %d and %d\n" , process[5].arrival_time, timeIndex[5].startTime, timeIndex[5].waitingTime);
-         printf("Time time 2  %d and %d and %d\n" , process[6].arrival_time, timeIndex[6].startTime, timeIndex[6].waitingTime);
+        // printf("Time time 2  %d and %d and %d\n" , process[5].arrival_time, timeIndex[5].startTime, timeIndex[5].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[6].arrival_time, timeIndex[6].startTime, timeIndex[6].waitingTime);
      
-         printf("Time time 2  %d and %d and %d\n" , process[7].arrival_time, timeIndex[7].startTime, timeIndex[7].waitingTime);
-         printf("Time time 2  %d and %d and %d\n" , process[8].arrival_time, timeIndex[8].startTime, timeIndex[8].waitingTime);
-         printf("Time time 2  %d and %d and %d\n" , process[9].arrival_time, timeIndex[9].startTime, timeIndex[9].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[7].arrival_time, timeIndex[7].startTime, timeIndex[7].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[8].arrival_time, timeIndex[8].startTime, timeIndex[8].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[9].arrival_time, timeIndex[9].startTime, timeIndex[9].waitingTime);
         return time;
 }
 
 int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
-    int time = 0; 
-
-    for (int i = 0; i < ARR_SIZE; i++) { 
-        if (process[i].arrival_time < )
-
-    }
+  int time = 0;
     
 
 
     // for (int i = 0; i < ARR_SIZE; i++) {
-        
-
-
 
     //     int arrivalTime = process[i].arrival_time;
     //     while (arrivalTime > time) {
@@ -101,12 +93,61 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
     //         }
     //         timeIndex[i].burstTime = time - timeIndex[i].startTime;
     //     }
+
+        //  printf("Time time 2  %d and %d and %d\n" , process[0].estimatedBurstTime, timeIndex[0].startTime, timeIndex[0].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[1].arrival_time, timeIndex[1].startTime, timeIndex[1].waitingTime);
+
+        //  printf("Time time 2  %d and %d and %d\n" , process[2].arrival_time, timeIndex[2].startTime, timeIndex[2].waitingTime);
+
+        //  printf("Time time 2  %d and %d and %d\n" , process[3].arrival_time, timeIndex[3].startTime, timeIndex[3].waitingTime);
+        //   printf("Time time 2  %d and %d and %d\n" , process[4].arrival_time, timeIndex[4].startTime, timeIndex[4].waitingTime);
+
+        // printf("Time time 2  %d and %d and %d\n" , process[5].arrival_time, timeIndex[5].startTime, timeIndex[5].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[6].arrival_time, timeIndex[6].startTime, timeIndex[6].waitingTime);
+     
+        //  printf("Time time 2  %d and %d and %d\n" , process[7].arrival_time, timeIndex[7].startTime, timeIndex[7].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[8].arrival_time, timeIndex[8].startTime, timeIndex[8].waitingTime);
+        //  printf("Time time 2  %d and %d and %d\n" , process[9].arrival_time, timeIndex[9].startTime, timeIndex[9].waitingTime);
         return time;
 
 }
 
 void shortestRemainingTimeFirst(Process process[]) {
 //call function to give each process arrival time
+//   int time = 0; 
+//     Process temp[ARR_SIZE];
+//     int processSize = sizeof(process) / sizeof(process[0]);
+//     int timeSize = sizeof(process) / sizeof(process[0]);
+//     int index = -1;
+//     for (int i = 0; i < ARR_SIZE; i++)
+//     {
+//         temp[i] = process[i];
+//     }
+    
+//     for (int i = 0; i < ARR_SIZE; i++) {
+//         int arrivalTime = temp[i].arrival_time;
+//         // if (temp[i].arrival_time > time) {
+
+//         // }
+//         while (arrivalTime > time)
+//             {
+//                 time++;
+//             }
+//             temp[i].arrival_time = -1;
+//             index = findIndex(timeIndex, timeSize, temp[i].process_id);
+//             timeIndex[index].startTime = time;
+//             index = findIndex(process, processSize, temp[i].process_id);
+//             process[index].actualStart = time;
+//             int burstTime = temp[i].burst_time;
+//            // printf("burst time %d\n" ,burstTime);
+
+//             while(burstTime > 0 && temp[i + 1].arrival_time > time) {
+//                 burstTime--;
+//                 time++;
+//             }
+//             timeIndex[i].burstTime = time - timeIndex[i].startTime;
+//            // timeIndex[i].arrivalTime = arrivalTime;
+//     }
 
 }
 
@@ -117,4 +158,14 @@ void roundRobin(Process process[]) {
 void priorityScheduling(Process process[]) {
     
 
+}
+
+
+int findIndex(const Process *arr, int size, int searchId) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i].process_id == searchId) {
+            return i; // Return the index when the ID matches
+        }
+    }
+    return -1; // Return -1 if not found
 }

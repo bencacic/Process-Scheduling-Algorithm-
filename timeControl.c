@@ -28,9 +28,18 @@ float waitingTime(int waitTimeSum) {
     return waitingTime;
 }
 
-// Time a process spends being executed
-float turnaround_time(int burstSum) {
-    float turnaroundtime = (float)(burstSum)/(float)ARR_SIZE;
+// Time a process spends being executed and in waiting
+/*
+The turnaround time formula is as follows:
+
+Turnaround Time = Completion Time – Arrival Time
+
+Alternatively, it is also calculated as follows:
+
+TAT = Burst Time + Waiting Time
+*/
+float turnaround_time(int burstSum, int waitingTime) {
+    float turnaroundtime = (float)(burstSum + waitingTime)/(float)ARR_SIZE;
     return turnaroundtime;
 }
 
@@ -69,7 +78,7 @@ void initTimeIndex(TimeIndex timeIndex[], Process process[])
         timeIndex[index].pid = process[index].process_id;
         timeIndex[index].burstTime = -1;
         timeIndex[index].startTime = -1;
-        timeIndex[index].estimatedBurstTime = -1;
+        // timeIndex[index].estimatedBurstTime = -1;
  // per process start time
        // timeIndex[index].timeFirstStarted = 0;
         timeIndex[index].waitingTime = -1;
