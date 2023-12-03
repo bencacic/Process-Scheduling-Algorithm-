@@ -15,22 +15,40 @@ void initProcesses(Process process[]){
     int min = 1;
     int maxArrival = 30;
     int minArrival = 0;
+    srand(time(0));
     for (int i = 0; i < ARR_SIZE; ++i) {
         process[i].process_id = i + 100; // Assign some values as an example
-        process[i].burst_time = (rand() % (max - min + 1)) + min; //max burst time 20 // 1000 - > 10000
+        process[i].burst_time = (rand() % (max - min + 1)) + min; //max burst time 50 // 
         process[i].priority = (rand() % (12 - 0 + 1)) + 0; 
-        process[i].arrival_time = (rand() % (maxArrival - minArrival + 1)) + minArrival; // between 30 to 0
+        process[i].arrival_time = (rand() % (maxArrival - minArrival + 1)) + minArrival; // between 30 to 
+        process[i].actualStart = -1;
         for (int j = 0; j < 4; j++) {
-            process[i].prevBursts[j] = 0; // these values should be close to the cpu burst time
+            process[i].prevBursts[j] =  (rand() % ( process[i].burst_time - min + 1)) + min; // these values should be close to the cpu burst time
         }
     }
     return;
 }
 
+// void initProcesses(Process process[]){
+//     int max = 50;
+//     int min = 1;
+//     int maxArrival = 30;
+//     int minArrival = 0;
+//     for (int i = 0; i < ARR_SIZE; ++i) {
+//         process[i].process_id = i; // Assign some values as an example
+//         process[i].burst_time = i+5; //max burst time 50 // 
+//         process[i].priority = (rand() % (12 - 0 + 1)) + 0; 
+//         process[i].arrival_time = i + 2; // between 30 to 
+//         for (int j = 0; j < 4; j++) {
+//             process[i].prevBursts[j] =  (rand() % ( process[i].burst_time - min + 1)) + min; // these values should be close to the cpu burst time
+//         }
+//     }
+//     return;
+// }
+
 void readyQueue (Process process[], int choice) {
 
    // TimeIndex *temp_timeIndex;
-    Process *newPointer;
   
     if (choice == 1) // sort by arrival time (FCFS)
     {
@@ -45,14 +63,15 @@ void readyQueue (Process process[], int choice) {
     {
         /* code */
     }
-    else if (choice == 4) // priority
+    else if (choice == 4) // round robin
     {
-        /* code */
-    } else if (choice == 5)
+    } 
+    else if (choice == 5)
     {
+        sort_PR(process); // priority     
     }
     
-    return newPointer;
+    return;
 }
 void sort_FCFS (Process process[]) {
 
@@ -60,53 +79,78 @@ void sort_FCFS (Process process[]) {
     // {
     //     process[i] = temp_queue[i];
     // }
+    //  printf("Before time 2 %d \n" , process[0].arrival_time);
+    //      printf("Time time 2 %d \n" , process[1].arrival_time);
 
-    int numProcess = sizeof(process) / sizeof(process[0]);
-    qsort(process, (size_t)ARR_SIZE, sizeof(process)/sizeof(process[0]), compareArrivalTime);
+    //     printf("Time time 2 %d\n" , process[2].arrival_time);
+
+    //      printf("Time time 2 %d\n" , process[3].arrival_time);
+    //      printf("Time time 2 %d\n" , process[4].arrival_time);
+
+    //      printf("Time time 2 %d\n" , process[5].arrival_time);
+    //      printf("Time time 2 %d\n" , process[6].arrival_time);
+     
+    //     printf("Time time 2 %d\n" , process[7].arrival_time);
+    //     printf("Time time 2 %d\n" , process[8].arrival_time);
+    //     printf("Time time 2 %d\n" , process[9].arrival_time);
+    qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), compareArrivalTime);
+    //  printf("After time 2 %d \n" , process[0].arrival_time);
+    //      printf("Time time 2 %d \n" , process[1].arrival_time);
+
+    //     printf("Time time 2 %d\n" , process[2].arrival_time);
+
+    //      printf("Time time 2 %d\n" , process[3].arrival_time);
+    //      printf("Time time 2 %d\n" , process[4].arrival_time);
+
+    //      printf("Time time 2 %d\n" , process[5].arrival_time);
+    //      printf("Time time 2 %d\n" , process[6].arrival_time);
+     
+    //     printf("Time time 2 %d\n" , process[7].arrival_time);
+    //     printf("Time time 2 %d\n" , process[8].arrival_time);
+    //     printf("Time time 2 %d\n" , process[9].arrival_time);
  
     return;
 }
 
 void sort_SJB (Process process[]) {
-    int numProcess = sizeof(process) / sizeof(process[0]);
+    int numProcess = sizeof(Process) / sizeof(process[0]);
 // Sort the array based on the 'arrival_time' field
-    qsort(process, numProcess, sizeof(Process), compareAttributes);
+    qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), compareSJF);
 }
 
 void sort_PR(Process process[]) {
-    
+    int numProcess = sizeof(Process) / sizeof(process[0]);
+    //sort array based on the 'priority' field
+    qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), comparePriority);
 }
-
-void sort_RR () {}
 
 
 int compareArrivalTime(const void *a, const void *b)
 {
     const Process *processA = (const Process *)a;
     const Process *processB = (const Process *)b;
-    if (/* condition */)
-    {
-       return processA->arrival_time - processB->arrival_time;
-    }
-    
-    return processA->arrival_time - processB->arrival_time;
+    return processA -> arrival_time - processB -> arrival_time;
 }
+
+int compareSJF(const void *a, const void *b) {
+    const Process *processA = (const Process *)a;
+    const Process *processB = (const Process *)b;
+
+    for(int i = 0; i < 4; i++) {
+        int exponAveA = processA-> prevBursts[i];
+        int exponAveB = processB-> prevBursts[i];    
+    }
+    //return processA  - processB-> priority;
+
+   return 0;
+   }
 
 int comparePriority (const void *a, const void *b) {
     const Process *processA = (const Process *)a;
     const Process *processB = (const Process *)b;
     return processA-> priority - processB-> priority;
 }
-int comparePriority (const void *a, const void *b) {
-    const Process *processA = (const Process *)a;
-    const Process *processB = (const Process *)b;
-    return processA-> priority - processB-> priority;
-}
-int comparePriority (const void *a, const void *b) {
-    const Process *processA = (const Process *)a;
-    const Process *processB = (const Process *)b;
-    return processA-> priority - processB-> priority;
-}
+
          
 
 

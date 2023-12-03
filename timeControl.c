@@ -1,5 +1,6 @@
 #include "timeControl.h"
 
+// Time spent executing a burst 
 float CPU_utilization(int cpuTimeSum, int wallTimeSum) {
 /*
     printf("%d",cpuTimeSum);
@@ -10,63 +11,66 @@ float CPU_utilization(int cpuTimeSum, int wallTimeSum) {
     float utilization = ((float)cpuTimeSum/CORES) / (float)wallTimeSum;
     //utilization = (float)utilization / CLOCKS_PER_SEC;
     //printf("\n%f",utilization * 100);
-    return utilization * 100;
+    return utilization * 100; //to get as a percentage
 }
 
+// Number of processes completed per unit time
 float throughPut(int wallTimeSum) {
     float throughput = (float)ARR_SIZE / (float)wallTimeSum;
     return throughput;
 }
 
+// Total time a process spends in the ready queue. Should be same as response time 
+// as we have no IO bursts implemented
 float waitingTime(int waitTimeSum) {
 
-    float waitingTime = ((float)waitTimeSum / (float)ARR_SIZE) / CLOCKS_PER_SEC;
+    float waitingTime = ((float)waitTimeSum / (float)ARR_SIZE);
     return waitingTime;
 }
 
-float turnaround_time(int process_start_time, int wallTimeSum) {
-    float turnaroundtime = (float)(wallTimeSum - process_start_time)/(float)ARR_SIZE;
+// Time a process spends being executed
+float turnaround_time(int burstSum) {
+    float turnaroundtime = (float)(burstSum)/(float)ARR_SIZE;
     return turnaroundtime;
 }
 
-//check total burst time
-float totalBurstTime(int totalWaitTime) {
-    float average = 0;
-    // divide by 3600 to get per seconds
-    average = ((float)totalWaitTime) / CLOCKS_PER_SEC; //this should be changed to waiting time
-    return average;
-}
-
+// Duration between entering the ready queue and getting its first execution by the CPU
 float response_time(int totalWaitTime) {
- float responseTime = ((float)totalWaitTime / (float)ARR_SIZE) / CLOCKS_PER_SEC;
+ float responseTime = ((float)totalWaitTime / (float)ARR_SIZE);
     return responseTime;
     }
 
 // Retrieves sum of any desired value. PBR so that we only loop through one time.
-void retrieve_time_totals(TimeIndex timeIndex[], int *total_CPU_time, int *total_wall_time, int *total_burst_time, int *process_start_time, int *total_wait_time,
-    int *total_response_time) {
-    int cpuSum, burstSum, wallSum, processStart, waitSum = 0;
+void retrieve_time_totals(TimeIndex timeIndex[], int *total_burst_time, int *process_start_time, int *total_wait_time) {
+    int burstSum = 0, 
+        processStart = 0, 
+        waitSum = 0, 
+        turnaroundTimeSum = 0;
+
     for(int i = 0; i < ARR_SIZE; i++) {
-        wallSum += timeIndex[i].wallTime;
         burstSum += timeIndex[i].burstTime;
         processStart += timeIndex[i].startTime;
-        waitSum += timeIndex[i].waitingTime;
+        waitSum = waitSum + timeIndex[i].waitingTime;
+        printf("\nwaitSum %d\n", waitSum);
     }
 
-    *total_CPU_time = cpuSum;
-    *total_wall_time = wallSum;
-    *total_burst_time = burstSum; // + waiting time
+ // dont need this here anymore. Can leave it for now though.
+    *total_burst_time = burstSum; 
     *process_start_time = processStart;
     *total_wait_time = waitSum;
-    *total_response_time = waitSum;
+   // printf("\nsss %d\n", waitSum);
+   // *total_response_time = waitSum;
     return;
 }
-void initTimeIndex(TimeIndex timeIndex[])
+void initTimeIndex(TimeIndex timeIndex[], Process process[])
 {
     for (int index = 0; index < ARR_SIZE; index++)
     {
+        timeIndex[index].pid = process[index].process_id;
         timeIndex[index].burstTime = -1;
         timeIndex[index].startTime = -1;
+        timeIndex[index].estimatedBurstTime = -1;
+ // per process start time
        // timeIndex[index].timeFirstStarted = 0;
         timeIndex[index].waitingTime = -1;
        // timeIndex[index].totalBurstTime = 0;

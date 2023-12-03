@@ -12,10 +12,9 @@
 #include "processes.h"
 #include "timeControl.h"
 
-void firstComeFirstServe(Process procecess[], TimeIndex timeIndex[]);
+int firstComeFirstServe(Process procecess[], TimeIndex timeIndex[]);
 
-void shortestJobFirst(Process procecess[]);
-
+int shortestJobFirst(Process process[], TimeIndex timeIndex[]);   
 void shortestRemainingTimeFirst(Process procecess[]);
 
 void roundRobin(Process procecess[]);

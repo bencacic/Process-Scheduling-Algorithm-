@@ -46,13 +46,13 @@ void runProcesses(int option, Process process[], TimeIndex timeIndex[]) {
     //firstjobdone();
 
     if (option == 1){
-    runfirstComeFirstServe(process,timeIndex);
+        runfirstComeFirstServe(process,timeIndex);
     }else if (option == 2)
     {
        // firstjobdone();
         /* code */
     } else {
-        printf("Not Implemente");
+        printf("Not Implemented");
     }
     
     // start_t = clock();
@@ -70,33 +70,22 @@ void runProcesses(int option, Process process[], TimeIndex timeIndex[]) {
 }
 
 void runfirstComeFirstServe(Process procecess[], TimeIndex timeIndex[]){
-    int cpuTimeSum = 0;
-    int wallTimeSum = 0;
-    int total_burstTime = 0;
-    int total_startTime = 0;
-    int total_wait_time = 0;
-    int total_responseTime = 0;
-    float cpuUtilizzation = 0;
-    float averageWaitTime = 0;
-    float burstTime = 0;
-    float throughput = 0;
-    float MeanTurnaroundTime = 0;
-    float meanWaitingTime = 0;
-    float meanResponseTime = 0;
-   // Process procecess[ARR_SIZE];
-   // TimeIndex timeIndex[ARR_SIZE];
-    firstComeFirstServe(procecess, timeIndex);
-    retrieve_time_totals(timeIndex, &cpuTimeSum,  &wallTimeSum, &total_burstTime, &total_startTime, &total_wait_time, &total_responseTime);
-    // retrieve_time_totals(TimeIndex timeIndex[], int *total_CPU_time, int *total_wall_time, int *total_burst_time, int *process_start_time)
- //   cpuTimeSum = timeIndex->cpuBurstTime;
-   // wallTimeSum = timeIndex->totalBurstTime;
-    cpuUtilizzation = CPU_utilization(cpuTimeSum, wallTimeSum);
-    burstTime = totalBurstTime(wallTimeSum);
-    throughput = throughPut(wallTimeSum);
-    MeanTurnaroundTime = turnaround_time(total_startTime, wallTimeSum);
-    meanWaitingTime = waitingTime(total_wait_time);
-    meanResponseTime = response_time(total_responseTime);
-    printData(FCFS_ALGORITHM,cpuUtilizzation, burstTime, throughput, MeanTurnaroundTime, meanWaitingTime, meanResponseTime);
+    int wallTime, waitTime, burstTime, startTime = 0;
+    float meanWaitTime, cpuUtilizzation, throughput, MeanTurnaroundTime, meanResponseTime = 0;
+
+    readyQueue(procecess, 1);
+    wallTime = firstComeFirstServe(procecess, timeIndex);
+    retrieve_time_totals(timeIndex, &burstTime, &startTime, &waitTime);
+    printf("burst time %d" ,burstTime);
+    printf("wallTime time %d" ,wallTime);
+
+    cpuUtilizzation = CPU_utilization(burstTime, wallTime);
+
+    throughput = throughPut(wallTime);
+    MeanTurnaroundTime = turnaround_time(burstTime);
+    meanWaitTime = waitingTime(waitTime);
+    meanResponseTime = response_time(waitTime);
+    printData(FCFS_ALGORITHM,cpuUtilizzation, burstTime, throughput, MeanTurnaroundTime, meanWaitTime, meanResponseTime);
  } 
 
 void printData(int choice, float cpuUtilization, float burstTime, float throughput, 
@@ -173,7 +162,7 @@ void menu() {
     int choice;
 
     initProcesses(process);
-    initTimeIndex(timeIndex);
+    initTimeIndex(timeIndex, process);
 
      do {
         printf("\nSelect the algorithm to run: \n");
