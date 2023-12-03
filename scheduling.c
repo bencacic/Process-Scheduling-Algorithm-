@@ -75,62 +75,45 @@ int firstComeFirstServe(Process process[], TimeIndex timeIndex[]) {
 }
 
 int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
-  int time = 0;
-  int flag = 0;
-  int i ,k ,j;
-  int counter = 0;
-  int counter1 = 0;
-  Process temp[ARR_SIZE];
+ 
 
-
-    for (int i = 0; ARR_SIZE < 20; i++)
-    {
-        // if(process[i + 1].arrival_time == process[i].arrival_time){
+     Process temp[ARR_SIZE];
+   // estimateBurstTime(process);
+     int time = 0;
+      int i;
+   // qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), compareArrivalTime);
+    for(int i = 0; i < ARR_SIZE;i++){
         temp[i] = process[i];
     }
-   // sorted by arrival time process
-    sort_SJB(temp); //temp is sorted bassed on the expected burst time
-    //if process[i].arr
-
-    for (i = 0; counter < 20; i++) {
-        // if more than one process is in the ready queue, decide using using process[i].expectedBurst which to run
-            for (j = 0; j < ARR_SIZE; j++) {
-                k = i;
-                if (temp[j].arrival_time <= time && process[i].completed == -1) {
-                    if (temp[j].process_id == process[k].process_id)
-                    {
-                        /* code */
-                        flag = 1;
-                        break;
-                    }else{
-                        for (k = i + 1; k < ARR_SIZE; k++)
-                        {
-                            if (temp[j].process_id == process[k].process_id){
-                                flag = 1;
-                                 break;
-                            }
-                        }
-                        if (flag) {
-                         break;
-                            }
-                    }
-                }
-            }
-
-            if (flag)
-            {
-                   
+    qsort(temp, (size_t)ARR_SIZE, sizeof(temp[0]), compareSJF);
+    sortQueue(process, temp);
+    // for (int i = 0; i < ARR_SIZE; i++) {
+    //     printf("Process ID: %d, Arrival Time: %d, Expected Burst Time: %f, burst_time: %d\n",
+    //            process[i].process_id, process[i].arrival_time, process[i].estimatedBurstTime,process[i].burst_time);
+    // }
+   
+   
+    //processes will be passed in sorted by arrival time.
+   // uti = allof cpu time / burst time // burst time is the time where the cpu is busy
+        for (i = 0; i < ARR_SIZE; i++) {
              int arrivalTime = process[i].arrival_time;
            // printf("arrival time %d\n" ,arrivalTime);
+
+            // if (arrivalTime > time) {
                 timeIndex[i].waitingTime = abs(arrivalTime - time);
-       
+            //  }
+            //  else 
+            //  {
+            //       timeIndex[i].waitingTime = 0;
+            //  }
+
             while (arrivalTime > time)
             {
                 time++;
             }
             timeIndex[i].startTime = time;
-            process[k].actualStart = time;
-            int burstTime = process[k].burst_time;
+            process[i].actualStart = time;
+            int burstTime = process[i].burst_time;
            // printf("burst time %d\n" ,burstTime);
 
             while(burstTime > 0) {
@@ -138,29 +121,14 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
                 time++;
             }
             timeIndex[i].burstTime = time - timeIndex[i].startTime;
-            process[k].completed = 0;
-            }else{
-                time++;
-            }
-            
-       
-            if (process[i].completed == -1)
-            {
-               i = 0;
-            }
-            flag = 0;
-            counter++;
-            // if (counter == 80)
-            // {
-            //     i = 0;
-            // }
-            
-
+           // timeIndex[i].arrivalTime = arrivalTime;
            
         }
+    
+    
+    
 
-
-
+        return time;
  
 
     //      printf("process 0 process_id %d and startTime %d and estimatedBurstTime %f\n" , process[0].process_id, process[0].arrival_time, process[0].estimatedBurstTime);
@@ -191,7 +159,7 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
     //      printf("temp time 8 process_id %d and startTime %d and estimatedBurstTime %f\n" , temp[8].process_id, temp[8].arrival_time, temp[8].estimatedBurstTime);
     //      printf("temp time 9 process_id %d and startTime %d and estimatedBurstTime %f\n" , temp[9].process_id, temp[9].arrival_time, temp[9].estimatedBurstTime);
         
-        return time;
+       
 
 }
 
@@ -246,7 +214,7 @@ int priorityScheduling(Process process[], TimeIndex timeIndex[]) {
     Process temp_process_01, temp_process_02;
     for (int i = 0; i < ARR_SIZE; i++)
     {
-        elapsedTime = [pointer_01].arrival_time;
+        elapsedTime = process[pointer_01].arrival_time;
     }
     return 1;     
 }
@@ -260,4 +228,48 @@ int findIndex(const Process *arr, int size, int searchId) {
         }
     }
     return -1; // Return -1 if not found
+}
+
+
+void sortQueue(Process process[], Process temp[]) {
+    //Process temp[ARR_SIZE]; // Use ARR_SIZE instead of 10 for consistency
+
+    // for (int i = 0; i < ARR_SIZE; i++) {
+    //     temp[i] = readyQueue[i]; // Make a copy of the process array
+    // }
+
+    // Sort temp (copy of process array) by expected burst time using qsort
+   //qsort(temp, ARR_SIZE, sizeof(Process), compareSJF);
+
+    int currentTime = 0;
+    int processedCount = 0;
+  
+    while (processedCount < ARR_SIZE) {
+        int shortestIndex = -1;
+        // Set to a large value initially
+        float shortestBurst = 60;
+        // Find the arrived process with the shortest burst time from the sorted temp array
+        for (int i = 0; i < ARR_SIZE; i++) {
+            if (temp[i].arrival_time <= currentTime && temp[i].process_id != -1) {
+                if (temp[i].estimatedBurstTime < shortestBurst) {
+                    shortestBurst = temp[i].estimatedBurstTime;
+                    shortestIndex = i;
+                }
+            }
+        }
+
+        if (shortestIndex != -1) {
+            process[processedCount++] = temp[shortestIndex];
+            currentTime += temp[shortestIndex].burst_time;
+            temp[shortestIndex].process_id = -1; // Mark as processed
+        } else {
+            currentTime++; // Move to the next unit of time
+        }
+    }
+
+    // Display the sorted processes
+    for (int i = 0; i < ARR_SIZE; i++) {
+        printf("Process ID: %d, Arrival Time: %d, Expected Burst Time: %f, burst_time: %d\n",
+               process[i].process_id, process[i].arrival_time, process[i].estimatedBurstTime,process[i].burst_time);
+    }
 }

@@ -107,6 +107,8 @@ if (choice == 1)
 {
     fprintf(filePtr, "$$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$\n");
     printf("$$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$\n");
+} else if (choice == 2)
+{
 }
 // Print total CPU utilization time with dashes
 printf("\nTotal CPU utilization: %.2f%% \n",cpuUtilization);

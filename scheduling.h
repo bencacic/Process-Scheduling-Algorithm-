@@ -20,8 +20,10 @@ void shortestRemainingTimeFirst(Process procecess[]);
 
 void roundRobin(Process procecess[]);
 
-void priorityScheduling(Process procecess[]);
+int priorityScheduling(Process process[], TimeIndex timeIndex[]);
 
 int findIndex(const Process *arr, int size, int searchId);
+
+void sortQueue(Process process[], Process temp[]);
 
 #endif
