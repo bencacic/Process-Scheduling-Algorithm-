@@ -65,7 +65,8 @@ void readyQueue (Process process[], int choice) {
     }
     else if (choice == 3) // shortest reaming time
     {
-        /* code */
+        estimateBurstTime(process);
+        sort_FCFS (process);
     }
     else if (choice == 4) // round robin
     {
@@ -173,4 +174,23 @@ void estimateBurstTime(Process process[]) {
     return;
 }         
 
+void emptyQueue(Process process[]) {
+    for (int i = 0; i < ARR_SIZE; i++) {
+        process[i].process_id = -1;
+        process[i].burst_time = -1;
+        process[i].priority = -1;
+        process[i].arrival_time = -1;
+        process[i].actualStart = -1;
+        process[i].completed = -1;
+        process[i].estimatedBurstTime = -1;
+        for (int j = 0; j < 4; j++) {
+            process[i].prevBursts[j] = -1;
+        }
+        } 
+    }
 
+void swap(Process process[], int index1, int index2) {
+    Process temp = process[index1];
+    process[index1] = process[index2];
+    process[index2] = temp;
+}
