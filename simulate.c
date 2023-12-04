@@ -80,7 +80,11 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice){
       wallTime = shortestJobFirst( procecess, timeIndex);
     }else if (choice == 3) {
         wallTime = shortestRemainingTimeFirst(procecess, timeIndex);
+    }else if (choice == 5)
+    {
+        wallTime = priorityScheduling(procecess, timeIndex);
     }
+    
     
 
     // retrieve statistic information

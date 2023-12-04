@@ -263,16 +263,76 @@ void roundRobin(Process process[]) {
 }
 
 // non-preemptive priority schedule
+// int priorityScheduling(Process process[], TimeIndex timeIndex[]) {
+//     int pointer_01 = 0, pointer_02;
+//     int elapsedTime = 0;
+//     Process temp_process_01, temp_process_02;
+//     for (int i = 0; i < ARR_SIZE; i++)
+//     {
+//         elapsedTime = process[pointer_01].arrival_time;
+//     }
+//     return 1;     
+// }
+
+
+
 int priorityScheduling(Process process[], TimeIndex timeIndex[]) {
-    int pointer_01 = 0, pointer_02;
-    int elapsedTime = 0;
-    Process temp_process_01, temp_process_02;
-    for (int i = 0; i < ARR_SIZE; i++)
-    {
-        elapsedTime = process[pointer_01].arrival_time;
+ //printf("n SJF:\n");
+    Process temp[ARR_SIZE];
+     int time = 0;
+     int i;
+   // qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), compareArrivalTime);
+    for( i = 0; i < ARR_SIZE;i++){
+        temp[i] = process[i];
     }
-    return 1;     
-}
+   //  printf("Sorted Rea:\n");
+    qsort(temp, (size_t)ARR_SIZE, sizeof(temp[0]), comparePriority);
+    
+    sortPriority(process, temp);
+   // printf("here");
+    // for ( i = 0; i < ARR_SIZE; i++) {
+    //     printf("Process ID: %d, Arrival Time: %d, priority: %d, burst_time: %d\n",
+    //           process[i].process_id, process[i].arrival_time, process[i].priority,process[i].burst_time);
+    // }
+   
+   
+    //processes will be passed in sorted by arrival time.
+   // uti = allof cpu time / burst time // burst time is the time where the cpu is busy
+        for (i = 0; i < ARR_SIZE; i++) {
+             int arrivalTime = process[i].arrival_time;
+           // printf("arrival time %d\n" ,arrivalTime);
+
+            // if (arrivalTime > time) {
+                timeIndex[i].waitingTime = abs(arrivalTime - time);
+            //  }
+            //  else 
+            //  {
+            //       timeIndex[i].waitingTime = 0;
+            //  }
+
+            while (arrivalTime > time)
+            {
+                time++;
+            }
+            timeIndex[i].startTime = time;
+            process[i].actualStart = time;
+            int burstTime = process[i].burst_time;
+           // printf("burst time %d\n" ,burstTime);
+
+            while(burstTime > 0) {
+                burstTime--;
+                time++;
+            }
+            timeIndex[i].burstTime = time - timeIndex[i].startTime;
+           // timeIndex[i].arrivalTime = arrivalTime;
+           
+        }
+    
+    
+    
+
+        return time;
+        }
 
 
 int findIndex(const Process *arr, int size, int searchId) {
@@ -326,6 +386,48 @@ void sortQueue(Process process[], Process temp[]) {
     for (int i = 0; i < ARR_SIZE; i++) {
         printf("Process ID: %d, Arrival Time: %d, Expected Burst Time: %f, burst_time: %d\n",
                process[i].process_id, process[i].arrival_time, process[i].estimatedBurstTime,process[i].burst_time);
+    }
+}
+
+
+void sortPriority(Process process[], Process temp[]) {
+    int currentTime = 0;
+    int processedCount = 0;
+
+    while (processedCount < ARR_SIZE) {
+        int highestPriorityIndex = -1;
+        int highestPriority = 10; // Initialize highestPriority with maximum possible value
+
+        // Find the arrived process with the highest priority from the temp array
+        for (int i = 0; i < ARR_SIZE; i++) {
+            if (temp[i].arrival_time <= currentTime && temp[i].process_id != -1) {
+                if (temp[i].priority < highestPriority) {
+                    highestPriority = temp[i].priority;
+                    highestPriorityIndex = i;
+                }
+            }
+        }
+
+        if (highestPriorityIndex != -1) {
+            process[processedCount++] = temp[highestPriorityIndex];
+            currentTime += temp[highestPriorityIndex].burst_time;
+            temp[highestPriorityIndex].process_id = -1; // Mark as processed
+        } else {
+            int nextArrival = 10;
+            // Find the next arrival time to update the currentTime
+            for (int i = 0; i < ARR_SIZE; i++) {
+                if (temp[i].arrival_time > currentTime && temp[i].arrival_time < nextArrival) {
+                    nextArrival = temp[i].arrival_time;
+                }
+            }
+            currentTime = nextArrival; // Move to the next arrival time
+        }
+    }
+
+    // Display the sorted processes
+    for (int i = 0; i < ARR_SIZE; i++) {
+        printf("Process ID: %d, Arrival Time: %d, priority: %d, burst_time: %d\n",
+            process[i].process_id, process[i].arrival_time, process[i].priority, process[i].burst_time);
     }
 }
 

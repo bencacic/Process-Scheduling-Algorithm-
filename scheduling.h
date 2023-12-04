@@ -25,7 +25,7 @@ int priorityScheduling(Process process[], TimeIndex timeIndex[]);
 int findIndex(const Process *arr, int size, int searchId);
 
 void sortQueue(Process process[], Process temp[]);
-
+void sortPriority(Process process[], Process temp[]);
 void swap(Process process[], TimeIndex timeIndex[], int index1, int index2);
 
 
