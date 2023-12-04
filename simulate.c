@@ -2,11 +2,12 @@
 #include "scheduling.h"
 #include "timeControl.h"
 #include "output.h"
+#include "mylib.h"
 
-void menu();
-void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice);
+void menu( FILE *filePtr);
+void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *filePtr);
 // void firstComeFirstServe();
-void runfirstComeFirstServe(Process procecess[], TimeIndex timeIndex[]);
+// void runfirstComeFirstServe(Process procecess[], TimeIndex timeIndex[]);
 
  
     //#define Process process[ARR_SIZE];
@@ -24,7 +25,17 @@ const int PRIORITY_SCHEDULING = 5;
 int main() {
     //loop through all arrays of processes. Or have a seclection menu so that the user can pick which set of processes to initilize and which algorithm they want to test.
    // runProcesses();
-    menu();
+    FILE *filePtr;
+    filePtr = fopen("output.txt", "w+");
+
+    if (filePtr == NULL)
+    {
+        printf("ERROR - UNABLE TO OPEN THE FILE\n");
+    } else
+    {
+        menu(filePtr);
+        fclose(filePtr);
+    }
     return 0;
 }
 
@@ -67,10 +78,9 @@ int main() {
 //     //call print function here maybe
 // }
 
-void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice){
+void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *filePtr){
     int wallTime, waitTime, burstTime, startTime = 0;
     float meanWaitTime, cpuUtilizzation, throughput, MeanTurnaroundTime, meanResponseTime = 0;
-    int priorityFlag = 0;
 
     // run the selected algorithm
     readyQueue(procecess, choice);
@@ -83,7 +93,6 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice){
     }else if (choice == 5)
     {
         wallTime = priorityScheduling(procecess, timeIndex);
-        priorityFlag = 1;
     }
     
 
@@ -96,13 +105,13 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice){
     meanResponseTime = response_time(waitTime);
     
     // print the output
-    statistic_table(procecess,priorityFlag);
+    statistic_table(procecess,choice);
     makeGantChart(procecess);
-    printData(choice,cpuUtilizzation, burstTime, throughput, MeanTurnaroundTime, meanWaitTime, meanResponseTime);
+    printData(filePtr,choice,cpuUtilizzation,burstTime,throughput,MeanTurnaroundTime,meanWaitTime,meanResponseTime);
  } 
 
 
-void menu() {
+void menu(FILE *filePtr) {
     
     Process process[ARR_SIZE];
     TimeIndex timeIndex[ARR_SIZE];
@@ -126,28 +135,28 @@ void menu() {
 
         if (choice == FCFS_ALGORITHM)
         {
-            runAlgo(process, timeIndex, 1);
+            runAlgo(process, timeIndex, 1,filePtr);
             //runfirstComeFirstServe(process,process);
         } else if (choice == SHORTEST_JOB_FIRST)
         {
-            runAlgo(process, timeIndex, 2);
+            runAlgo(process, timeIndex, 2,filePtr);
             // Call Shortest Job First 
         } else if (choice == SHORTEST_REMAIN_TIME)
         {
-            runAlgo(process, timeIndex, 3);
+            runAlgo(process, timeIndex, 3,filePtr);
             // Call Shortest Remaining Time 
         } else if (choice == ROUND_ROBIN)
         {
             // Call Round Robin
         } else if (choice == PRIORITY_SCHEDULING)
         {
-            runAlgo(process, timeIndex, 5);
+            runAlgo(process, timeIndex, 5,filePtr);
             // Call Priority Schedule
         } else if (choice == 6)
         {
-            runAlgo(process, timeIndex, 1);
-            runAlgo(process, timeIndex, 2);
-            runAlgo(process, timeIndex, 5);
+            runAlgo(process, timeIndex, 1,filePtr);
+            runAlgo(process, timeIndex, 2,filePtr);
+            runAlgo(process, timeIndex, 5,filePtr);
             /// call all the functions
         } else if (choice == -1)
         {

@@ -1,18 +1,18 @@
 
 
-Sun Dec  3 20:33:07 2023
+Sun Dec  3 23:00:14 2023
 
 $$$$$ STATISTIC RECORD OF PRIORITY-SCHEDULING ALGORITHM $$$$$
 
-Total CPU utilization: 97.87%
+Total CPU utilization: 98.45%
 --------------------------------------------------------
-Total Burst time: 230.000000 seconds
+Total Burst time: 317.000000 seconds
 --------------------------------------------------------
-Mean wait time: 94.099998 per process
+Mean wait time: 132.000000 per process
 --------------------------------------------------------
-Throughput: 0.042553 processes per unit time
+Throughput: 0.031056 processes per unit time
 --------------------------------------------------------
-Average response time: 94.099998 seconds
+Average response time: 132.000000 seconds
 --------------------------------------------------------
-Turnaround time: 117.099998 processes per unit time
+Turnaround time: 163.699997 processes per unit time
 --------------------------------------------------------
