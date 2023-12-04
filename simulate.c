@@ -78,6 +78,8 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice){
         wallTime = firstComeFirstServe(procecess, timeIndex);
     }else if (choice == 2){  
       wallTime = shortestJobFirst( procecess, timeIndex);
+    }else if (choice == 3) {
+        wallTime = shortestRemainingTimeFirst(procecess, timeIndex);
     }
     
 
@@ -128,6 +130,7 @@ void menu() {
             // Call Shortest Job First 
         } else if (choice == SHORTEST_REMAIN_TIME)
         {
+            runAlgo(process, timeIndex, 3);
             // Call Shortest Remaining Time 
         } else if (choice == ROUND_ROBIN)
         {

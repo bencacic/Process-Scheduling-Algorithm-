@@ -16,7 +16,7 @@ int firstComeFirstServe(Process procecess[], TimeIndex timeIndex[]);
 
 int shortestJobFirst(Process process[], TimeIndex timeIndex[]);   
 
-void shortestRemainingTimeFirst(Process procecess[]);
+int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]);
 
 void roundRobin(Process procecess[]);
 

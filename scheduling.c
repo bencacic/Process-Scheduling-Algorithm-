@@ -163,44 +163,45 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
 
 }
 
-void shortestRemainingTimeFirst(Process process[]) {
+int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
+
+     Process temp[ARR_SIZE];
+   // estimateBurstTime(process);
+     int time = 0;
+      int i;
+   // qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), compareArrivalTime);
+    for(int i = 0; i < ARR_SIZE;i++){
+        temp[i] = process[i];
+    }
+    qsort(temp, (size_t)ARR_SIZE, sizeof(temp[0]), compareSJF);
+    sortQueue(process, temp);
+   
+   
+    //processes will be passed in sorted by arrival time.
+   // uti = allof cpu time / burst time // burst time is the time where the cpu is busy
+        for (i = 0; i < ARR_SIZE; i++) {
+             int arrivalTime = process[i].arrival_time;
+
+                timeIndex[i].waitingTime = abs(arrivalTime - time);
+        
+            while (arrivalTime > time)
+            {
+                time++;
+            }
+            timeIndex[i].startTime = time;
+            process[i].actualStart = time;
+            int burstTime = process[i].burst_time;
+
+            while(burstTime > 0) {
+                burstTime--;
+                time++;
+            }
+            timeIndex[i].burstTime = time - timeIndex[i].startTime;
+           
+        }
     
-//call function to give each process arrival time
-//   int time = 0; 
-//     Process temp[ARR_SIZE];
-//     int processSize = sizeof(process) / sizeof(process[0]);
-//     int timeSize = sizeof(process) / sizeof(process[0]);
-//     int index = -1;
-//     for (int i = 0; i < ARR_SIZE; i++)
-//     {
-//         temp[i] = process[i];
-//     }
+    return time;
     
-//     for (int i = 0; i < ARR_SIZE; i++) {
-//         int arrivalTime = temp[i].arrival_time;
-//         // if (temp[i].arrival_time > time) {
-
-//         // }
-//         while (arrivalTime > time)
-//             {
-//                 time++;
-//             }
-//             temp[i].arrival_time = -1;
-//             index = findIndex(timeIndex, timeSize, temp[i].process_id);
-//             timeIndex[index].startTime = time;
-//             index = findIndex(process, processSize, temp[i].process_id);
-//             process[index].actualStart = time;
-//             int burstTime = temp[i].burst_time;
-//            // printf("burst time %d\n" ,burstTime);
-
-//             while(burstTime > 0 && temp[i + 1].arrival_time > time) {
-//                 burstTime--;
-//                 time++;
-//             }
-//             timeIndex[i].burstTime = time - timeIndex[i].startTime;
-//            // timeIndex[i].arrivalTime = arrivalTime;
-//     }
-
 }
 
 void roundRobin(Process process[]) {
