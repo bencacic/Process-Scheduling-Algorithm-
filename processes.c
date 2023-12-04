@@ -188,9 +188,3 @@ void emptyQueue(Process process[]) {
         }
         } 
     }
-
-void swap(Process process[], int index1, int index2) {
-    Process temp = process[index1];
-    process[index1] = process[index2];
-    process[index2] = temp;
-}

@@ -33,7 +33,6 @@ void sort_PR(Process process[]);
 void sort_SJB (Process process[]);
 void estimateBurstTime(Process process[]);
 void emptyQueue(Process process[]);
-void swap(Process process[], int index1, int index2);
 
 
 #endif

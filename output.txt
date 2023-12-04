@@ -1,18 +1,18 @@
 
 
-Sun Dec  3 19:51:49 2023
+Sun Dec  3 19:58:21 2023
 
 $$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$
 
-Total CPU utilization: 27.78%
+Total CPU utilization: -5.56%
 --------------------------------------------------------
-Total Burst time: 10.000000 seconds
+Total Burst time: -2.000000 seconds
 --------------------------------------------------------
-Mean wait time: 14.100000 per process
+Mean wait time: 8.500000 per process
 --------------------------------------------------------
 Throughput: 0.277778 processes per unit time
 --------------------------------------------------------
-Average response time: 14.100000 seconds
+Average response time: 8.500000 seconds
 --------------------------------------------------------
-Turnaround time: 15.100000 processes per unit time
+Turnaround time: 8.300000 processes per unit time
 --------------------------------------------------------

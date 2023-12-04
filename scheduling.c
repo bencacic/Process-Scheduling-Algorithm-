@@ -187,7 +187,7 @@ int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
 
         for (int j = 0; j < ARR_SIZE; j++) {
             if ((process[j].estimatedBurstTime > process[i].estimatedBurstTime) && (process[j].arrival_time <= time) && process[j].completed == -1) {
-                swap(process, i, j);
+                swap(process, timeIndex, i, j);
                 break;
             }
         }
@@ -327,4 +327,14 @@ void sortQueue(Process process[], Process temp[]) {
         printf("Process ID: %d, Arrival Time: %d, Expected Burst Time: %f, burst_time: %d\n",
                process[i].process_id, process[i].arrival_time, process[i].estimatedBurstTime,process[i].burst_time);
     }
+}
+
+void swap(Process process[], TimeIndex timeIndex[], int index1, int index2) {
+    Process pTemp = process[index1];
+    process[index1] = process[index2];
+    process[index2] = pTemp;
+
+    TimeIndex tTemp = timeIndex[index1];
+    timeIndex[index1] = timeIndex[index2];
+    timeIndex[index2] = tTemp;
 }
