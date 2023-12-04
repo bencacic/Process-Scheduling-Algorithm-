@@ -34,7 +34,7 @@ void makeGantChart(Process process[])
         printf(" ");
         for (int j = 0; j < scale[i] + 2; j++)
         {
-            printf("--");
+            printf(BOLD CYN"--");
         }
     }
     printf("\n\t");
@@ -109,6 +109,18 @@ if (choice == 1)
     printf("$$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$\n");
 } else if (choice == 2)
 {
+    fprintf(filePtr, "$$$$$ STATISTIC RECORD OF SHORTEST-JOB-FIRST $$$$$\n");
+    printf("$$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$\n");
+}
+else if (choice == 3)
+{
+    fprintf(filePtr, "$$$$$ STATISTIC RECORD OF SHORTEST-REMAINING-TIME $$$$$\n");
+    printf("$$$$$ STATISTIC RECORD OF SHORTEST-REMAINING-TIME $$$$$\n");
+    
+} else if (choice == 5)
+{
+    fprintf(filePtr, "$$$$$ STATISTIC RECORD OF PRIORITY-SCHEDULING ALGORITHM $$$$$\n");
+    printf("$$$$$ STATISTIC RECORD OF PRIORITY-SCHEDULING ALGORITHM $$$$$\n");
 }
 // Print total CPU utilization time with dashes
 printf("\nTotal CPU utilization: %.2f%% \n",cpuUtilization);
@@ -163,7 +175,7 @@ static void print_table_priority(Process process[])
 {
     printf("\n");
     printf(BOLD CYN);
-    printf("\t+-----+----------+--------------+------------+-----------------+-----------------+--------------+\n");
+    printf("\t+-----+----------+--------------+--------------+------------+-----------------+-----------------+--------------+\n" RESET);
     printf(BOLD CYN); printf("\t| ");
     printf(BOLD YEL); printf("PID ");
     printf(BOLD CYN); printf("| ");
@@ -180,13 +192,14 @@ static void print_table_priority(Process process[])
     printf(BOLD YEL); printf("Waiting Time ");
     printf(BOLD CYN"|\n");
     printf(BOLD CYN);
-    printf("\t+-----+----------+--------------+------------+-----------------+-----------------+--------------+\n" RESET);
+    printf("\t+-----+----------+--------------+--------------+------------+-----------------+-----------------+--------------+\n" RESET);
 
     for (int i = 0; i < ARR_SIZE; i++)
     {
         printf(BOLD CYN"\t| ");  printf(WHT "P%d  ",process[i].process_id);
         printf(BOLD CYN"|   ");  printf(WHT"%3d    ",process[i].priority);
         printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].arrival_time);
+        printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].actualStart);
         printf(BOLD CYN"|     "); printf(WHT"%3d    ",process[i].burst_time);
         // actual starting time + burst time = completion time
         int completionTime = process[i].actualStart + process[i].burst_time;
@@ -226,6 +239,7 @@ static void print_table(Process process[])
     {
         printf(BOLD CYN"\t| ");  printf(WHT "P%d  ",process[i].process_id);
         printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].arrival_time);
+        printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].actualStart);
         printf(BOLD CYN"|     "); printf(WHT"%3d    ",process[i].burst_time);
         // actual starting time + burst time = completion time 
         int completionTime = process[i].actualStart + process[i].burst_time;

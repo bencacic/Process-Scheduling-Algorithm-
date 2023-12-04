@@ -1,18 +1,18 @@
 
 
-Sun Dec  3 19:58:21 2023
+Sun Dec  3 20:33:07 2023
 
-$$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$
+$$$$$ STATISTIC RECORD OF PRIORITY-SCHEDULING ALGORITHM $$$$$
 
-Total CPU utilization: -5.56%
+Total CPU utilization: 97.87%
 --------------------------------------------------------
-Total Burst time: -2.000000 seconds
+Total Burst time: 230.000000 seconds
 --------------------------------------------------------
-Mean wait time: 8.500000 per process
+Mean wait time: 94.099998 per process
 --------------------------------------------------------
-Throughput: 0.277778 processes per unit time
+Throughput: 0.042553 processes per unit time
 --------------------------------------------------------
-Average response time: 8.500000 seconds
+Average response time: 94.099998 seconds
 --------------------------------------------------------
-Turnaround time: 8.300000 processes per unit time
+Turnaround time: 117.099998 processes per unit time
 --------------------------------------------------------

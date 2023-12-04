@@ -19,7 +19,7 @@ void initProcesses(Process process[]){
     for (int i = 0; i < ARR_SIZE; ++i) {
         process[i].process_id = i; // Assign some values as an example
         process[i].burst_time = (rand() % (max - min + 1)) + min; //max burst time 50 // 
-        process[i].priority = (rand() % (12 - 0 + 1)) + 0; 
+        process[i].priority = (rand() % (10 - 0 + 1)) + 0; 
         process[i].arrival_time = (rand() % (maxArrival - minArrival + 1)) + minArrival; // between 30 to 
         process[i].actualStart = -1;
         process[i].completed = -1;

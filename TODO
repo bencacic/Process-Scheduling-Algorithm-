@@ -1,11 +1,17 @@
-(1) FCFS
-(2) SHORTEST JOB FIRST - In prograss 👀🔥
+(1) FCFS ✅
+(2) SHORTEST JOB FIRST - In prograss ✅
 (3) SHORTEST REMAINING TIME 
 (4) ROUND ROBIN 
-(5) PRIORITY SCHEDULE
+(5) PRIORITY SCHEDULE ✅
 
 OTHER TASKS:
 🤯 BUILDING TEST CASES
 🤮 DOCUMENTATION 
 😱 PRESENTATION PREPARATION 
+
+
+all should have arrival and actual time 
+(2 & 3) Expected Burst Time
+(4) $ Brst
+(5) priority done! ✅
 🫡 🥳

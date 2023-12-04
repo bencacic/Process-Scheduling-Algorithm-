@@ -83,8 +83,8 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice){
     }else if (choice == 5)
     {
         wallTime = priorityScheduling(procecess, timeIndex);
+        priorityFlag = 1;
     }
-    
     
 
     // retrieve statistic information
@@ -98,7 +98,7 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice){
     // print the output
     statistic_table(procecess,priorityFlag);
     makeGantChart(procecess);
-    printData(FCFS_ALGORITHM,cpuUtilizzation, burstTime, throughput, MeanTurnaroundTime, meanWaitTime, meanResponseTime);
+    printData(choice,cpuUtilizzation, burstTime, throughput, MeanTurnaroundTime, meanWaitTime, meanResponseTime);
  } 
 
 
@@ -141,9 +141,13 @@ void menu() {
             // Call Round Robin
         } else if (choice == PRIORITY_SCHEDULING)
         {
+            runAlgo(process, timeIndex, 5);
             // Call Priority Schedule
         } else if (choice == 6)
         {
+            runAlgo(process, timeIndex, 1);
+            runAlgo(process, timeIndex, 2);
+            runAlgo(process, timeIndex, 5);
             /// call all the functions
         } else if (choice == -1)
         {

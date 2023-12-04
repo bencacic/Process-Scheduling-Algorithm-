@@ -396,7 +396,7 @@ void sortPriority(Process process[], Process temp[]) {
 
     while (processedCount < ARR_SIZE) {
         int highestPriorityIndex = -1;
-        int highestPriority = 10; // Initialize highestPriority with maximum possible value
+        int highestPriority = 50; // Set to a large value initially
 
         // Find the arrived process with the highest priority from the temp array
         for (int i = 0; i < ARR_SIZE; i++) {
@@ -413,22 +413,16 @@ void sortPriority(Process process[], Process temp[]) {
             currentTime += temp[highestPriorityIndex].burst_time;
             temp[highestPriorityIndex].process_id = -1; // Mark as processed
         } else {
-            int nextArrival = 10;
-            // Find the next arrival time to update the currentTime
-            for (int i = 0; i < ARR_SIZE; i++) {
-                if (temp[i].arrival_time > currentTime && temp[i].arrival_time < nextArrival) {
-                    nextArrival = temp[i].arrival_time;
-                }
-            }
-            currentTime = nextArrival; // Move to the next arrival time
+            currentTime++; // Move to the next unit of time if no task is available
         }
+       // printf("loop");
     }
 
-    // Display the sorted processes
-    for (int i = 0; i < ARR_SIZE; i++) {
-        printf("Process ID: %d, Arrival Time: %d, priority: %d, burst_time: %d\n",
-            process[i].process_id, process[i].arrival_time, process[i].priority, process[i].burst_time);
-    }
+  // Display the sorted processes
+    // for (int i = 0; i < ARR_SIZE; i++) {
+    //     printf("Process ID: %d, Arrival Time: %d, priority: %d, burst_time: %d\n",
+    //         process[i].process_id, process[i].arrival_time, process[i].priority, process[i].burst_time);
+    // }
 }
 
 void swap(Process process[], TimeIndex timeIndex[], int index1, int index2) {
