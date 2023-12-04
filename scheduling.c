@@ -164,59 +164,99 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
 }
 
 int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
+    int time = 0;
+    int i;
+     Process temp[ARR_SIZE];
 
-  Process readyQueue[ARR_SIZE];
-   // estimateBurstTime(process);
-     int time = 0;
-      int i;
-   // qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), compareArrivalTime);
+
     for(int i = 0; i < ARR_SIZE;i++){
-        readyQueue[i] = process[i];
+        temp[i] = process[i];
     }
-     qsort(readyQueue, (size_t)ARR_SIZE, sizeof(readyQueue[0]), compareSJF);
-    sortQueue(process, readyQueue);
-   
-    //processes will be passed in sorted by arrival time.
-   // uti = allof cpu time / burst time // burst time is the time where the cpu is busy
-    //int processesRemaining = ARR_SIZE;
 
-        for (i = 0; i < ARR_SIZE; i++) {
-            int arrivalTime = process[i].arrival_time;
+    qsort(temp, (size_t)ARR_SIZE, sizeof(temp[0]), compareSJF);
+    sortQueue(process, temp);
 
-            timeIndex[i].waitingTime = abs(arrivalTime - time);
+    for (i = 0; i < ARR_SIZE; i++) {
+        int arrivalTime = process[i].arrival_time;
 
-            while (arrivalTime > time)
-            {
-                time++;
-            }
+        timeIndex[i].waitingTime = abs(arrivalTime - time);
 
-            for(int j = 0; j < ARR_SIZE; j++) {
-               if((process[j].estimatedBurstTime > process[i].estimatedBurstTime) && (process[j].arrival_time <= time) && process[j].completed == -1) {
+        while (arrivalTime > time) {
+            time++;
+        }
+
+        for (int j = 0; j < ARR_SIZE; j++) {
+            if ((process[j].estimatedBurstTime > process[i].estimatedBurstTime) && (process[j].arrival_time <= time) && process[j].completed == -1) {
                 swap(process, i, j);
                 break;
-               }
-            }
-
-            if (process[i].completed == -1 ){
-                timeIndex[i].startTime = time;
-                process[i].actualStart = time;
-                //int burstTime = process[i].burst_time;
-
-                if (process[i].burst_time > 0) {
-                    process[i].burst_time--;
-                    time++;
-                }
-                else {
-                // processesRemaining--;
-                //process[i].completed = 0; // it is successfully completed
-            }
-                timeIndex[i].burstTime += time - timeIndex[i].startTime;
-
             }
         }
 
-        return time;
+        timeIndex[i].startTime = time;
+        process[i].actualStart = time;
+
+        if (process[i].burst_time > 0) {
+            process[i].burst_time--;
+            time++;
+        }
+
+        timeIndex[i].burstTime = time - timeIndex[i].startTime;
+    }
+
+    return time;
 }
+
+// int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
+
+//   Process readyQueue[ARR_SIZE];
+//    // estimateBurstTime(process);
+//      int time = 0;
+//       int i;
+//    // qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), compareArrivalTime);
+//     // for(int i = 0; i < ARR_SIZE;i++){
+//     //     readyQueue[i] = process[i];
+//     // }
+//      qsort(readyQueue, (size_t)ARR_SIZE, sizeof(readyQueue[0]), compareSJF);
+//     sortQueue(process, readyQueue);
+   
+//     //processes will be passed in sorted by arrival time.
+//    // uti = allof cpu time / burst time // burst time is the time where the cpu is busy
+//     //int processesRemaining = ARR_SIZE;
+
+//         for (i = 0; i < ARR_SIZE; i++) {
+//             int arrivalTime = process[i].arrival_time;
+
+//             timeIndex[i].waitingTime = abs(arrivalTime - time);
+
+//             while (arrivalTime > time)
+//             {
+//                 time++;
+//             }
+
+//             for(int j = 0; j < ARR_SIZE; j++) {
+//                if((process[j].estimatedBurstTime > process[i].estimatedBurstTime) && (process[j].arrival_time <= time) && process[j].completed == -1) {
+//                 swap(process, i, j);
+//                 break;
+//                }
+//             }
+
+//             if (process[i].completed == -1 ){
+//                 timeIndex[i].startTime = time;
+//                 process[i].actualStart = time;
+//                 //int burstTime = process[i].burst_time;
+
+//                 if (process[i].burst_time > 0) {
+//                     process[i].burst_time--;
+//                     time++;
+//                 }
+
+//                 timeIndex[i].burstTime += time - timeIndex[i].startTime;
+
+//             }
+//         }
+
+//         return time;
+// }
 
 void roundRobin(Process process[]) {
 
