@@ -70,6 +70,7 @@ void readyQueue (Process process[], int choice) {
     }
     else if (choice == 4) // round robin
     {
+        sort_FCFS (process); // let here temporarily
     } 
     else if (choice == 5)
     {

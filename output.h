@@ -17,11 +17,4 @@ void makeGantChart(Process process[]);
 void printData(FILE *filePtr, int choice, float cpuUtilization, float burstTime, float throughput, 
                float MeanTurnaroundTime, float meanWaitTime, float meanResponseTime);
 
-void statistic_table(Process process[], int choice);
-static void print_table_priority(Process process[]);
-static void print_table_FCFS(Process process[]);
-static void print_table_ExpectedBurst(Process process[]);
-static void print_label(int choice);
-static void print_lable_name();
-
 #endif

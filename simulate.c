@@ -3,6 +3,7 @@
 #include "timeControl.h"
 #include "output.h"
 #include "mylib.h"
+#include "stat_table.h"
 
 void menu( FILE *filePtr);
 void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *filePtr);
@@ -147,6 +148,7 @@ void menu(FILE *filePtr) {
             // Call Shortest Remaining Time 
         } else if (choice == ROUND_ROBIN)
         {
+            runAlgo(process, timeIndex, 4,filePtr);
             // Call Round Robin
         } else if (choice == PRIORITY_SCHEDULING)
         {
