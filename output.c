@@ -41,7 +41,7 @@ void makeGantChart(Process process[])
 
     for (int i = 0; i < ARR_SIZE; i++)
     {
-        printf("|");
+        printf(BOLD CYN"|");
         for (int j = 0; j < scale[i] + 2; j++)
         {
             if ((((int)scale[i]/2) + 1) == j)
@@ -54,14 +54,13 @@ void makeGantChart(Process process[])
             printf("  ");
         }
     }
-    printf("|\n\t");
+    printf(BOLD CYN"|\n\t");
     for (int i = 0; i < ARR_SIZE; i++)
     {
         printf(" ");
         for (int j = 0; j < scale[i] + 2; j++)
         {
-            printf(BOLD CYN);
-            printf("--");
+            printf(BOLD CYN"--");
         }
     }
     printf("\n\t");
@@ -76,7 +75,7 @@ void makeGantChart(Process process[])
         }
     }
     printf(BOLD GRN);
-    printf("%-3d", (process[9].actualStart));
+    printf("%-3d", (process[9].actualStart + process[9].burst_time));
     printf(RESET);
     printf("\n");
     return;
@@ -95,6 +94,8 @@ localTime = localtime(&currentTime);
 printf("\n\n%s\n",asctime(localTime));
 fprintf(filePtr, "\n\n%s\n",asctime(localTime));
 
+printf("%d choice ", choice);
+
 if (choice == 1)
 {
     fprintf(filePtr, "$$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$\n");
@@ -102,14 +103,19 @@ if (choice == 1)
 } else if (choice == 2)
 {
     fprintf(filePtr, "$$$$$ STATISTIC RECORD OF SHORTEST-JOB-FIRST $$$$$\n");
-    printf("$$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$\n");
+    printf("$$$$$ STATISTIC RECORD OF SHORTEST-JOB-FIRST $$$$$\n");
 }
 else if (choice == 3)
 {
     fprintf(filePtr, "$$$$$ STATISTIC RECORD OF SHORTEST-REMAINING-TIME $$$$$\n");
     printf("$$$$$ STATISTIC RECORD OF SHORTEST-REMAINING-TIME $$$$$\n");
     
-} else if (choice == 5)
+} else if (choice == 4)
+{
+    fprintf(filePtr, "$$$$$ STATISTIC RECORD OF ROUND ROBIN ALGORITHM $$$$$\n");
+    printf("$$$$$ STATISTIC RECORD OF ROUND ROBIN ALGORITHM $$$$$\n");
+}
+ else if (choice == 5)
 {
     fprintf(filePtr, "$$$$$ STATISTIC RECORD OF PRIORITY-SCHEDULING ALGORITHM $$$$$\n");
     printf("$$$$$ STATISTIC RECORD OF PRIORITY-SCHEDULING ALGORITHM $$$$$\n");
