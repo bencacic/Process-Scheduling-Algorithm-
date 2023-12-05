@@ -1,3 +1,9 @@
+/* Group Members: Mohammed Arab, Khanh Le, Ben Cacic
+   Course: COMP 3659
+   Assignment: Assignment 02
+   Instructor: Marc Schroeder
+   File Name: timeControl.c
+ */
 #include "timeControl.h"
 
 // Time spent executing a burst 
