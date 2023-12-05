@@ -183,6 +183,8 @@ int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
 
         while (arrivalTime > time) {
             time++;
+
+            
         }
 
         for (int j = 0; j < ARR_SIZE; j++) {
@@ -258,9 +260,56 @@ int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
 //         return time;
 // }
 
-void roundRobin(Process process[]) {
 
+// I will finish tmrw
+int roundRobin(Process process[], TimeIndex timeIndex[]) {
+    int time = 0;
+    int i;
+    int timeQuantum = 10;
+    int completed = 0;
+    int waiting = 0;
+
+
+while (completed < ARR_SIZE)
+{
+  
+
+     for (i = 0; i < ARR_SIZE; i++) {
+        if (!process[i].completed)
+        {
+             int arrivalTime = process[i].arrival_time;
+    
+              timeIndex[i].waitingTime = abs(arrivalTime - time);
+            //  }
+          
+            while (arrivalTime > time)
+            {
+                time++;
+            }
+            timeIndex[i].startTime = time;
+            process[i].actualStart = time;
+            int burstTime = process[i].burst_time;
+           // printf("burst time %d\n" ,burstTime);
+
+            while(burstTime > 0) {
+                burstTime--;
+                time++;
+            }
+            timeIndex[i].burstTime = time - timeIndex[i].startTime;
+           // timeIndex[i].arrivalTime = arrivalTime;
+           if(process[i].completed){
+            completed++;
+
+        }
+           
+        }
+        }
+    
+      /* code */
 }
+
+        return time;
+        }
 
 // non-preemptive priority schedule
 // int priorityScheduling(Process process[], TimeIndex timeIndex[]) {

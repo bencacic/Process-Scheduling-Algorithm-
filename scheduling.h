@@ -18,7 +18,7 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]);
 
 int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]);
 
-void roundRobin(Process procecess[]);
+int roundRobin(Process process[], TimeIndex timeIndex[]);
 
 int priorityScheduling(Process process[], TimeIndex timeIndex[]);
 
