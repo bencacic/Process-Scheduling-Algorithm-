@@ -69,7 +69,7 @@ void readyQueue (Process process[], int choice) {
     }
     else if (choice == 3) // shortest reaming time
     {
-        estimateBurstTime(process);
+        //estimateBurstTime(process);
         sort_FCFS (process);
     }
     else if (choice == 4) // round robin

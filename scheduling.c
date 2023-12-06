@@ -164,51 +164,138 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
 
 }
 
-int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
-    int time = 0;
-    int i;
-     Process temp[ARR_SIZE];
+// int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
+//     int time = 0;
+//     int i;
+//      Process temp[ARR_SIZE];
 
 
-    for(int i = 0; i < ARR_SIZE;i++){
-        temp[i] = process[i];
-    }
+//     for(int i = 0; i < ARR_SIZE;i++){
+//         temp[i] = process[i];
+//     }
 
-    qsort(temp, (size_t)ARR_SIZE, sizeof(temp[0]), compareSJF);
-    sortQueue(process, temp);
+//     qsort(temp, (size_t)ARR_SIZE, sizeof(temp[0]), compareSJF);
+//     sortQueue(process, temp);
 
-    for (i = 0; i < ARR_SIZE; i++) {
-        int arrivalTime = process[i].arrival_time;
+//     for (i = 0; i < ARR_SIZE; i++) {
+//         int arrivalTime = process[i].arrival_time;
 
-        timeIndex[i].waitingTime = abs(arrivalTime - time);
+//         timeIndex[i].waitingTime = abs(arrivalTime - time);
 
-        while (arrivalTime > time) {
-            time++;
+//         while (arrivalTime > time) {
+//             time++;
 
             
-        }
+//         }
 
-        for (int j = 0; j < ARR_SIZE; j++) {
-            if ((process[j].estimatedBurstTime > process[i].estimatedBurstTime) && (process[j].arrival_time <= time) && process[j].completed == -1) {
-                swap(process, timeIndex, i, j);
-                break;
+//         for (int j = 0; j < ARR_SIZE; j++) {
+//             if ((process[j].estimatedBurstTime > process[i].estimatedBurstTime) && (process[j].arrival_time <= time) && process[j].completed == -1) {
+//                 swap(process, timeIndex, i, j);
+//                 break;
+//             }
+//         }
+
+//         timeIndex[i].startTime = time;
+//         process[i].actualStart = time;
+
+//         if (process[i].burst_time > 0) {
+//             process[i].burst_time--;
+//             time++;
+//         }
+
+//         timeIndex[i].burstTime = time - timeIndex[i].startTime;
+//     }
+
+//     return time;
+// }
+
+
+
+
+
+int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
+
+    int time = 0;
+    int i;
+    int timeQuantum;
+    int completed = 0;
+    Process temp[ARR_SIZE];
+    qsort(process, (size_t)ARR_SIZE, sizeof(process[0]), compareArrivalTime);
+    for (int i = 0; i < ARR_SIZE; i++)
+    {     
+        temp[i]= process[i];
+    }//should be sorted based on arrival time and burst length
+   
+    qsort(temp, (size_t)ARR_SIZE, sizeof(temp[0]), compareSJF);
+   
+    sortSRTF(process, temp);//call sortQueue if we want to check based on expected burst instead of actual burst
+
+ for (int i = 0; i < ARR_SIZE; i++)
+    {     
+        temp[i]= process[i];
+    }//we should make a function that makes this copy and we call it everytime we do a copy.
+   
+
+    while (completed < ARR_SIZE)
+    {
+     for (i = 0; i < ARR_SIZE; i++) {
+        timeQuantum = 0;
+        if (!temp[i].completed)
+        {
+             int arrivalTime = temp[i].arrival_time;
+          
+            while (arrivalTime > time)
+            {
+                time++;
             }
+            if(temp[i].started == 1){
+            timeIndex[i].startTime = time;
+            temp[i].actualStart = time;
+            }
+            process[i].actualStart = time;
+            int burstTime = temp[i].burst_time;
+         
+            while(burstTime > 0 && timeQuantum < 10) {
+                burstTime--;
+                time++;
+                if(temp[i + 1].arrival_time >= time){
+                      if(temp[i + 1].burst_time < burstTime){
+                          break;
+                      }
+                }
+            }
+            temp[i].burst_time = burstTime;
+            process[i].numberOfBursts++;
+            process[i].completed = time;
+            if (temp[i].burst_time <= 0)
+            {
+                temp[i].completed = 1;
+                completed++;
+                temp[i].burst_time = 0;
+            }
+         
+            temp[i].started = 0;
+              
         }
-
-        timeIndex[i].startTime = time;
-        process[i].actualStart = time;
-
-        if (process[i].burst_time > 0) {
-            process[i].burst_time--;
-            time++;
-        }
-
-        timeIndex[i].burstTime = time - timeIndex[i].startTime;
+       
     }
+// makeGantChart(process, 4);
+ }
 
-    return time;
+ for ( i = 0; i < ARR_SIZE; i++)
+ {
+     timeIndex[i].waitingTime = process[i].completed - process[i].arrival_time;
+     timeIndex[i].burstTime = process[i].burst_time;
+     process[i].actualStart = temp[i].actualStart;
+ }
+    // for (int i = 0; i < ARR_SIZE; i++) {
+    //     printf("Process ID: %d, Arrival Time: %d, Expected Burst Time: %f, burst_time: %d\n",
+    //            process[i].process_id, process[i].arrival_time, process[i].estimatedBurstTime,process[i].burst_time);
+    // }
+
+        return time;
+
 }
-
 // int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
 
 //   Process readyQueue[ARR_SIZE];
@@ -271,8 +358,7 @@ int roundRobin(Process process[], TimeIndex timeIndex[]) {
     Process temp[ARR_SIZE];
 
     for (int i = 0; i < ARR_SIZE; i++)
-    {   
-          
+    {     
         temp[i]= process[i];
     }
 
@@ -450,12 +536,58 @@ void sortQueue(Process process[], Process temp[]) {
     }
 
     // Display the sorted processes
-    for (int i = 0; i < ARR_SIZE; i++) {
-        printf("Process ID: %d, Arrival Time: %d, Expected Burst Time: %f, burst_time: %d\n",
-               process[i].process_id, process[i].arrival_time, process[i].estimatedBurstTime,process[i].burst_time);
-    }
+    // for (int i = 0; i < ARR_SIZE; i++) {
+    //     printf("Process ID: %d, Arrival Time: %d, Expected Burst Time: %f, burst_time: %d\n",
+    //            process[i].process_id, process[i].arrival_time, process[i].estimatedBurstTime,process[i].burst_time);
+    // }
 }
 
+
+
+void sortSRTF(Process process[], Process temp[]) {
+    //Process temp[ARR_SIZE]; // Use ARR_SIZE instead of 10 for consistency
+
+    // for (int i = 0; i < ARR_SIZE; i++) {
+    //     temp[i] = readyQueue[i]; // Make a copy of the process array
+    // }
+
+    // Sort temp (copy of process array) by expected burst time using qsort
+   //qsort(temp, ARR_SIZE, sizeof(Process), compareSJF);
+
+    int currentTime = 0;
+    int processedCount = 0;
+   // printf("here)");
+    while (processedCount < ARR_SIZE) {
+      //  printf("loop)");
+        int shortestIndex = -1;
+        // Set to a large value initially
+        float shortestBurst = 60;
+        // Find the arrived process with the shortest burst time from the sorted temp array
+        for (int i = 0; i < ARR_SIZE; i++) {
+            if (temp[i].arrival_time <= currentTime && temp[i].process_id != -1) {
+                if (temp[i].burst_time < shortestBurst) {
+                    shortestBurst = temp[i].burst_time;
+                    shortestIndex = i;
+                }
+            }
+        }
+
+        if (shortestIndex != -1) {
+            process[processedCount++] = temp[shortestIndex];
+            currentTime += temp[shortestIndex].burst_time;
+            temp[shortestIndex].process_id = -1; // Mark as processed
+        } else {
+            currentTime++; // Move to the next unit of time
+        }
+    }
+
+    // Display the sorted processes
+    // for (int i = 0; i < ARR_SIZE; i++) {
+    //     printf("Process ID: %d, Arrival Time: %d, Expected Burst Time: %f, burst_time: %d\n",
+    //            process[i].process_id, process[i].arrival_time, process[i].estimatedBurstTime,process[i].burst_time);
+    // }
+    
+}
 
 void sortPriority(Process process[], Process temp[]) {
     int currentTime = 0;
