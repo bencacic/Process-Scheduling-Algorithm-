@@ -81,19 +81,6 @@ static void print_table_priority(Process process[])
 
     for (int i = 0; i < ARR_SIZE; i++)
     {
-        // printf(BOLD CYN"| ");  printf(WHT "P%d  ",process[i].process_id);
-        // printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].arrival_time);
-        // printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].actualStart);
-        // printf(BOLD CYN"|     "); printf(WHT"%3d         ",process[i].burst_time);
-        // // actual starting time + burst time = completion time
-        // int completionTime = process[i].actualStart + process[i].burst_time;
-        // printf(BOLD CYN"|       "); printf(WHT "%3d       ",completionTime);
-        // // completion time - arrival time = turnaround time
-        // int turnaroundTime = completionTime - process[i].arrival_time;
-        // printf(BOLD CYN"|        "); printf(WHT"%3d      ", turnaroundTime);
-        // // turn_around time - burst time = waiting time
-        // printf(BOLD CYN"|     "); printf(WHT "%3d      ", (turnaroundTime - process[i].burst_time));
-
         print_process_stat(process, i, 5);
         printf(BOLD CYN"|   ");  printf(WHT"  %3d      ",process[i].priority);
         printf(BOLD CYN"|\n");
@@ -106,18 +93,6 @@ static void print_table_FCFS(Process process[])
     print_label(1);
     for (int i = 0; i < ARR_SIZE; i++)
     {
-        // printf(BOLD CYN"| ");  printf(WHT "P%d  ",process[i].process_id);
-        // printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].arrival_time);
-        // printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].actualStart);
-        // printf(BOLD CYN"|     "); printf(WHT"%3d         ",process[i].burst_time);
-        // // actual starting time + burst time = completion time 
-        // int completionTime = process[i].actualStart + process[i].burst_time;
-        // printf(BOLD CYN"|       "); printf(WHT "%3d       ",completionTime);
-        // // completion time - arrival time = turnaround time
-        // int turnaroundTime = completionTime - process[i].arrival_time;
-        // printf(BOLD CYN"|        "); printf(WHT"%3d      ", turnaroundTime);
-        // // turn_around time - burst time = waiting time
-        // printf(BOLD CYN"|     "); printf(WHT "%3d      ", (turnaroundTime - process[i].burst_time));
         print_process_stat(process, i,1);
         printf(BOLD CYN"|\n");
         printf(BOLD CYN);
@@ -185,9 +160,10 @@ static void print_process_stat(Process process[], int index, int choice)
     printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[index].arrival_time);
     printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[index].actualStart);
     printf(BOLD CYN"|     "); printf(WHT"%3d         ",process[index].burst_time);
-        // actual starting time + burst time = completion time
+        
     if (choice != 4)
     {
+        // actual starting time + burst time = completion time
         completionTime = process[index].actualStart + process[index].burst_time;
         printf(BOLD CYN"|       "); printf(WHT "%3d       ",completionTime);
     } else{
