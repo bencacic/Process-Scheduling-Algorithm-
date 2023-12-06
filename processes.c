@@ -50,6 +50,7 @@ void initProcesses(Process process[]){
 // }
 
 void readyQueue (Process process[], int choice) {
+    
 
    // TimeIndex *temp_timeIndex;
   
@@ -71,6 +72,7 @@ void readyQueue (Process process[], int choice) {
     }
     else if (choice == 4) // round robin
     {
+
         sort_FCFS (process); // let here temporarily
     } 
     else if (choice == 5)

@@ -82,21 +82,32 @@ int main() {
 void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *filePtr){
     int wallTime, waitTime, burstTime, startTime = 0;
     float meanWaitTime, cpuUtilizzation, throughput, MeanTurnaroundTime, meanResponseTime = 0;
-
+    Process temp[ARR_SIZE];
     // run the selected algorithm
     readyQueue(procecess, choice);
+
+     if (choice == 3 || choice == 4)
+    {
+         for (int i = 0; i < ARR_SIZE; i++)
+        {
+            temp[i] = procecess[i];
+        }
+    }
     if (choice == 1){
         wallTime = firstComeFirstServe(procecess, timeIndex);
     }else if (choice == 2){  
       wallTime = shortestJobFirst( procecess, timeIndex);
     }else if (choice == 3) {
-        wallTime = shortestRemainingTimeFirst(procecess, timeIndex);
-    }else if (choice == 5)
+        wallTime = shortestRemainingTimeFirst(temp, timeIndex);
+    } else if (choice == 4)
+    {
+        wallTime = roundRobin(temp, timeIndex);
+    }
+    else if (choice == 5)
     {
         wallTime = priorityScheduling(procecess, timeIndex);
     }
     
-
     // retrieve statistic information
     retrieve_time_totals(timeIndex, &burstTime, &startTime, &waitTime);
     cpuUtilizzation = CPU_utilization(burstTime, wallTime);
