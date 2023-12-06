@@ -6,6 +6,7 @@
  */
 #include "stat_table.h"
 
+
 void statistic_table(Process process[], int choice)
 {
     if (choice == 5)
@@ -40,7 +41,7 @@ static void print_label(int choice)
     {
         printf(BOLD CYN "+-----+--------------+--------------+-----------------+-----------------+-----------------+--------------+-----------------+\n");
         print_lable_name();
-        printf(BOLD YEL"  Expected Ouput ");
+        printf(BOLD YEL"  Expected Burst ");
         printf(BOLD CYN); printf("|");
         printf(BOLD CYN "\n+-----+--------------+--------------+-----------------+-----------------+-----------------+--------------+-----------------+\n");
     } else if (choice == 4)
@@ -156,14 +157,16 @@ static void print_table_RR(Process process[])
         printf(BOLD CYN"|     "); printf(WHT"%3d      ",process[i].actualStart);
         printf(BOLD CYN"|     "); printf(WHT"%3d         ",process[i].burst_time);
         // actual starting time + burst time = completion time 
-        int completionTime = process[i].actualStart + process[i].burst_time;
+       // int completionTime = process[i].actualStart + process[i].burst_time;
+        int completionTime = process[i].completed;
+       // process[i].completed = 0;
         printf(BOLD CYN"|       "); printf(WHT "%3d       ",completionTime);
         // completion time - arrival time = turnaround time
         int turnaroundTime = completionTime - process[i].arrival_time;
         printf(BOLD CYN"|        "); printf(WHT"%3d      ", turnaroundTime);
         // turn_around time - burst time = waiting time
         printf(BOLD CYN"|     "); printf(WHT "%3d      ", (turnaroundTime - process[i].burst_time));
-        printf(BOLD CYN"|     "); printf(WHT "%3d      ", process[i].burst_time);
+        printf(BOLD CYN"|     "); printf(WHT "%3d      ", process[i].numberOfBursts); 
         printf(BOLD CYN"|\n");
         printf(BOLD CYN);
         printf(BOLD CYN "+-----+--------------+--------------+-----------------+-----------------+-----------------+--------------+--------------+\n");

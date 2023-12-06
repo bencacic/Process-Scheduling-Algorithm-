@@ -82,26 +82,26 @@ int main() {
 void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *filePtr){
     int wallTime, waitTime, burstTime, startTime = 0;
     float meanWaitTime, cpuUtilizzation, throughput, MeanTurnaroundTime, meanResponseTime = 0;
-    Process temp[ARR_SIZE];
+  
     // run the selected algorithm
     readyQueue(procecess, choice);
 
-     if (choice == 3 || choice == 4)
-    {
-         for (int i = 0; i < ARR_SIZE; i++)
-        {
-            temp[i] = procecess[i];
-        }
-    }
+    //  if (choice == 3 || choice == 4)
+    // {
+    //      for (int i = 0; i < ARR_SIZE; i++)
+    //     {
+    //         temp[i] = procecess[i];
+    //     }
+    // }
     if (choice == 1){
         wallTime = firstComeFirstServe(procecess, timeIndex);
     }else if (choice == 2){  
       wallTime = shortestJobFirst( procecess, timeIndex);
     }else if (choice == 3) {
-        wallTime = shortestRemainingTimeFirst(temp, timeIndex);
+        wallTime = shortestRemainingTimeFirst(procecess, timeIndex);
     } else if (choice == 4)
     {
-        wallTime = roundRobin(temp, timeIndex);
+        wallTime = roundRobin(procecess, timeIndex);
     }
     else if (choice == 5)
     {
@@ -118,7 +118,11 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *fileP
     
     // print the output
     statistic_table(procecess,choice);
-    makeGantChart(procecess);
+    makeGantChart(procecess, choice);
+    for (int i = 0; i < ARR_SIZE; i++)
+    {
+        procecess[i].completed = 0;
+    }
     printData(filePtr,choice,cpuUtilizzation,burstTime,throughput,MeanTurnaroundTime,meanWaitTime,meanResponseTime);
  } 
 

@@ -37,7 +37,7 @@ static void preSetUp (Process process[], float scaleARR[]);
    Description: The function calculates the sum of burst times 
    of all processes
 */
-static int sumOfurstTime(Process process[]);
+static int sumOfBurstTime(Process process[]);
 
 /* Function name: makeGantChart
 
@@ -46,7 +46,7 @@ static int sumOfurstTime(Process process[]);
    Description: The function prints the gant chart of
    processes to the screen
 */
-void makeGantChart(Process process[]);
+void makeGantChart(Process process[], int choice);
 /* Function name: printData
 
    Inputs: FILE *filePtr - printing to file 
@@ -65,5 +65,7 @@ void makeGantChart(Process process[]);
 */
 void printData(FILE *filePtr, int choice, float cpuUtilization, float burstTime, float throughput, 
                float MeanTurnaroundTime, float meanWaitTime, float meanResponseTime);
+
+static void print_RR_data(Process process[], float scale[]);
 
 #endif

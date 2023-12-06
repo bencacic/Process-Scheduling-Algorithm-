@@ -1,0 +1,18 @@
+
+
+Tue Dec  5 23:20:54 2023
+
+$$$$$ STATISTIC RECORD OF SHORTEST-JOB-FIRST $$$$$
+
+Total CPU utilization: 98.33%
+--------------------------------------------------------
+Total Burst time: 236.00 seconds
+--------------------------------------------------------
+Mean wait time: 84.00 per process
+--------------------------------------------------------
+Throughput: 0.041667 processes per unit time
+--------------------------------------------------------
+Average response time: 84.00 seconds
+--------------------------------------------------------
+Turnaround time: 107.60 processes per unit time
+--------------------------------------------------------

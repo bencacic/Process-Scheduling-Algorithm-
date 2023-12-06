@@ -24,6 +24,8 @@ void initProcesses(Process process[]){
         process[i].actualStart = -1;
        // process[i].completed = -1;
        process[i].completed = 0; //changed this when working on RR if there is any errors it might be it
+       process[i].started = 1;  //means procees has started 
+       process[i].numberOfBursts = 0;
         process[i].estimatedBurstTime = -1;
         for (int j = 0; j < 4; j++) {
             process[i].prevBursts[j] =  (rand() % ( process[i].burst_time - min + 1)) + min; // these values should be close to the cpu burst time

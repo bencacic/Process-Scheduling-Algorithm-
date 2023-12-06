@@ -6,6 +6,7 @@
     Purpose use: Store scheduling algorithms
 */
 #include "scheduling.h"
+#include "output.h"
 
 //initialize process aray
 //startr clock to nanosec
@@ -267,49 +268,63 @@ int roundRobin(Process process[], TimeIndex timeIndex[]) {
     int i;
     int timeQuantum;
     int completed = 0;
-    int waiting = 0;
-    int newArrival = 0;
+    Process temp[ARR_SIZE];
 
+    for (int i = 0; i < ARR_SIZE; i++)
+    {   
+          
+        temp[i]= process[i];
+    }
 
-while (completed < ARR_SIZE)
-{
-  
-
+    while (completed < ARR_SIZE)
+    {
      for (i = 0; i < ARR_SIZE; i++) {
         timeQuantum = 0;
-        if (!process[i].completed)
+        if (!temp[i].completed)
         {
-             int arrivalTime = process[i].arrival_time;
-            
-              timeIndex[i].waitingTime = abs(arrivalTime - time);
-            //  }
+             int arrivalTime = temp[i].arrival_time;
           
             while (arrivalTime > time)
             {
                 time++;
             }
+            if(temp[i].started == 1){
             timeIndex[i].startTime = time;
+            temp[i].actualStart = time;
+            }
             process[i].actualStart = time;
-            int burstTime = process[i].burst_time;
-           // printf("burst time %d\n" ,burstTime);
-
+            int burstTime = temp[i].burst_time;
+         
             while(burstTime > 0 && timeQuantum < 10) {
                 burstTime--;
                 time++;
                 timeQuantum++;
             }
-            timeIndex[i].burstTime = time - timeIndex[i].startTime;
-            process[i].arrival_time = time;
-           if(process[i].completed){
-            completed++;
+            temp[i].burst_time = burstTime;
+            process[i].numberOfBursts++;
+            process[i].completed = time;
+            if (temp[i].burst_time <= 0)
+            {
+                temp[i].completed = 1;
+                completed++;
+                temp[i].burst_time = 0;
+            }
+         
+            temp[i].started = 0;
+              
+        }
+       
+    }
+ makeGantChart(process, 4);
+ }
 
-        }
-           
-        }
-        }
-    
-      /* code */
-}
+ for ( i = 0; i < ARR_SIZE; i++)
+ {
+     timeIndex[i].waitingTime = process[i].completed - process[i].arrival_time;
+     timeIndex[i].burstTime = process[i].burst_time;
+     process[i].actualStart = temp[i].actualStart;
+ }
+ 
 
         return time;
 }

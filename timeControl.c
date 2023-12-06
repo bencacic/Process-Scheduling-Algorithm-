@@ -13,7 +13,7 @@ float CPU_utilization(int cpuTimeSum, int wallTimeSum) {
     printf("\n%d",wallTimeSum);
 */
    // printf("cputTimeSum = %d", cpuTimeSum);
-   // printf(" and wallTimeSum = %d", wallTimeSum);
+    //printf(" and wallTimeSum = %d", wallTimeSum);
     float utilization = ((float)cpuTimeSum/CORES) / (float)wallTimeSum;
     //utilization = (float)utilization / CLOCKS_PER_SEC;
     //printf("\n%f",utilization * 100);
