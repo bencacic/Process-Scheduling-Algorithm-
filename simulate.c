@@ -6,7 +6,7 @@
 #include "stat_table.h"
 
 void menu( FILE *filePtr);
-void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *filePtr);
+void runAlgo(Process processes[], TimeIndex timeIndex[], int choice, FILE *filePtr);
 // void firstComeFirstServe();
 // void runfirstComeFirstServe(Process procecess[], TimeIndex timeIndex[]);
 
@@ -79,12 +79,12 @@ int main() {
 //     //call print function here maybe
 // }
 
-void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *filePtr){
+void runAlgo(Process processes[], TimeIndex timeIndex[], int choice, FILE *filePtr){
     int wallTime, waitTime, burstTime, startTime = 0;
-    float meanWaitTime, cpuUtilizzation, throughput, MeanTurnaroundTime, meanResponseTime = 0;
+    float meanWaitTime, cpuUtilization, throughput, MeanTurnaroundTime, meanResponseTime = 0;
   
     // run the selected algorithm
-    readyQueue(procecess, choice);
+    readyQueue(processes, choice);
 
     //  if (choice == 3 || choice == 4)
     // {
@@ -94,36 +94,36 @@ void runAlgo(Process procecess[], TimeIndex timeIndex[], int choice, FILE *fileP
     //     }
     // }
     if (choice == 1){
-        wallTime = firstComeFirstServe(procecess, timeIndex);
+        wallTime = firstComeFirstServe(processes, timeIndex);
     }else if (choice == 2){  
-      wallTime = shortestJobFirst( procecess, timeIndex);
+      wallTime = shortestJobFirst( processes, timeIndex);
     }else if (choice == 3) {
-        wallTime = shortestRemainingTimeFirst(procecess, timeIndex);
+        wallTime = shortestRemainingTimeFirst(processes, timeIndex);
     } else if (choice == 4)
     {
-        wallTime = roundRobin(procecess, timeIndex);
+        wallTime = roundRobin(processes, timeIndex);
     }
     else if (choice == 5)
     {
-        wallTime = priorityScheduling(procecess, timeIndex);
+        wallTime = priorityScheduling(processes, timeIndex);
     }
     
     // retrieve statistic information
     retrieve_time_totals(timeIndex, &burstTime, &startTime, &waitTime);
-    cpuUtilizzation = CPU_utilization(burstTime, wallTime);
+    cpuUtilization = CPU_utilization(burstTime, wallTime);
     throughput = throughPut(wallTime);
     MeanTurnaroundTime = turnaround_time(burstTime, waitTime);
     meanWaitTime = waitingTime(waitTime);
     meanResponseTime = response_time(waitTime);
     
     // print the output
-    statistic_table(procecess,choice);
-    makeGantChart(procecess, choice);
+    statistic_table(processes,choice);
+    makeGantChart(processes, choice);
     for (int i = 0; i < ARR_SIZE; i++)
     {
-        procecess[i].completed = 0;
+        processes[i].completed = 0;
     }
-    printData(filePtr,choice,cpuUtilizzation,burstTime,throughput,MeanTurnaroundTime,meanWaitTime,meanResponseTime);
+    printData(filePtr,choice,cpuUtilization,burstTime,throughput,MeanTurnaroundTime,meanWaitTime,meanResponseTime);
  } 
 
 

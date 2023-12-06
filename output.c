@@ -121,16 +121,17 @@ void makeGantChart(Process process[], int choice)
 }
 static void print_RR_data(Process process[], float scale[])
 {
-    if (process[9].burst_time <= 10)
-    {
-       // printf(BOLD GRN);
-        printf("%-3d", (process[9].actualStart));
-       // printf("%-3d", (process[9].actualStart + process[9].burst_time));
-    }else{
-       // printf(BOLD GRN);
-        printf("%-3d", (process[9].actualStart));
-       // printf("%-3d", (process[9].actualStart + 10));
-    }    
+    // if (process[9].burst_time <= 10)
+    // {
+    //    // printf(BOLD GRN);
+    //     printf("%-3d", (process[9].actualStart));
+    //    // printf("%-3d", (process[9].actualStart + process[9].burst_time));
+    // }else{
+    //    // printf(BOLD GRN);
+    //     printf("%-3d", (process[9].actualStart));
+    //    // printf("%-3d", (process[9].actualStart + 10));
+    // }  
+    printf(BOLD GRN"START");  
     printf("\n\t");
         for (int i = 0; i < 10; i++)
         {
@@ -142,13 +143,14 @@ static void print_RR_data(Process process[], float scale[])
             printf("  ");
         }
         }
-        printf(BOLD GRN);
-        if (process[9].burst_time <= 10)
-        {
-            printf("%-3d", (process[9].actualStart + process[9].burst_time));
-        }else{
-            printf("%-3d", (process[9].actualStart + 10));
-        }
+        printf(BOLD GRN"COMPLETE"); 
+        // printf(BOLD GRN);
+        // if (process[9].burst_time <= 10)
+        // {
+        //     printf("%-3d", (process[9].actualStart + process[9].burst_time));
+        // }else{
+        //     printf("%-3d", (process[9].actualStart + 10));
+        // }
     // printf("\n");
     return;
 }
@@ -182,8 +184,6 @@ localTime = localtime(&currentTime);
 printf("\n\n%s\n",asctime(localTime));
 fprintf(filePtr, "\n\n%s\n",asctime(localTime));
 
-printf("%d choice ", choice);
-
 if (choice == 1)
 {
     fprintf(filePtr, "$$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$\n");
@@ -214,9 +214,15 @@ printf("--------------------------------------------------------\n");
 fprintf(filePtr, "\nTotal CPU utilization: %.2f%%\n", cpuUtilization);
 fprintf(filePtr,"--------------------------------------------------------\n");
 // Print average waiting time with dashes
-printf("Total Burst time: %.0f seconds\n", burstTime);
+printf("Total burst time: %.0f seconds\n", burstTime);
 printf("--------------------------------------------------------\n");
-fprintf(filePtr, "Total Burst time: %.2f seconds\n", burstTime);
+fprintf(filePtr, "Total burst time: %.2f seconds\n", burstTime);
+fprintf(filePtr,"--------------------------------------------------------\n");
+
+// Print turnaround time with dashes
+printf("Mean Turnaround time: %.2f clock ticks per process\n", MeanTurnaroundTime);
+printf("--------------------------------------------------------\n");
+fprintf(filePtr, "Mean Turnaround time: %.2f clock ticks per process\n", MeanTurnaroundTime);
 fprintf(filePtr,"--------------------------------------------------------\n");
 
 // Print mean waiting time with dashes
@@ -225,24 +231,18 @@ printf("--------------------------------------------------------\n");
 fprintf(filePtr, "Mean wait time: %.2f per process\n", meanWaitTime);
 fprintf(filePtr,"--------------------------------------------------------\n");
 
-// Print throughput with dashes
-printf("Throughput: %.6f processes per unit time\n", throughput);
-printf("--------------------------------------------------------\n");
-fprintf(filePtr, "Throughput: %.6f processes per unit time\n", throughput);
-fprintf(filePtr,"--------------------------------------------------------\n");
 
 //Print average response time with dashes
-printf("Average response time: %.2f seconds\n", meanResponseTime);
+printf("Mean response time: %.2f seconds\n", meanResponseTime);
 printf("--------------------------------------------------------\n");
-fprintf(filePtr, "Average response time: %.2f seconds\n", meanResponseTime);
+fprintf(filePtr, "Mean response time: %.2f seconds\n", meanResponseTime);
 fprintf(filePtr,"--------------------------------------------------------\n");
 
-// Print turnaround time with dashes
-printf("Mean Turnaround time: %.2f processes per unit time\n", MeanTurnaroundTime);
+// Print throughput with dashes
+printf("Mean throughput: %.6f processes per clock tick\n", throughput);
 printf("--------------------------------------------------------\n");
-fprintf(filePtr, "Turnaround time: %.2f processes per unit time\n", MeanTurnaroundTime);
+fprintf(filePtr, "Meanhroughput: %.6f processes per clock tick\n", throughput);
 fprintf(filePtr,"--------------------------------------------------------\n");
-
 
 return;
 }

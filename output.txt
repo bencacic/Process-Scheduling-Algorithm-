@@ -1,18 +1,18 @@
 
 
-Tue Dec  5 23:20:54 2023
+Tue Dec  5 23:56:00 2023
 
-$$$$$ STATISTIC RECORD OF SHORTEST-JOB-FIRST $$$$$
+$$$$$ STATISTIC RECORD OF ROUND ROBIN ALGORITHM $$$$$
 
-Total CPU utilization: 98.33%
+Total CPU utilization: 98.36%
 --------------------------------------------------------
-Total Burst time: 236.00 seconds
+Total Burst time: 240.00 seconds
 --------------------------------------------------------
-Mean wait time: 84.00 per process
+Mean Turnaround time: 143.20 clock ticks per process
 --------------------------------------------------------
-Throughput: 0.041667 processes per unit time
+Mean wait time: 119.20 per process
 --------------------------------------------------------
-Average response time: 84.00 seconds
+Mean response time: 119.20 seconds
 --------------------------------------------------------
-Turnaround time: 107.60 processes per unit time
+Meanhroughput: 0.040984 processes per clock tick
 --------------------------------------------------------
