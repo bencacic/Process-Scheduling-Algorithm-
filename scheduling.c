@@ -30,7 +30,6 @@ int firstComeFirstServe(Process process[], TimeIndex timeIndex[]) {
     Description: The function performs the shortest job first
     scheduling algorithms on the processes.
 */
-
 int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
     int time = 0;
     Process temp[ARR_SIZE];
@@ -42,7 +41,14 @@ int shortestJobFirst(Process process[], TimeIndex timeIndex[]){
     return runBurst( process, timeIndex, time);
 }
 
-
+/*  Function name: shortestRemainingTimeFirst
+    Inputs: Process process[] - Array of processes
+            TimeIndex timeIndex[] - Array of statistic time of each 
+                                    process 
+    Output: int - the wall time
+    Description: The function performs the shortest remaining time 
+    first scheduling algorithms on the processes.
+*/
 int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
     int time = 0;
     int completed = 0;
@@ -89,10 +95,10 @@ int shortestRemainingTimeFirst(Process process[], TimeIndex timeIndex[]) {
 }
 
     for (int i = 0; i < ARR_SIZE; i++){
-    timeIndex[i].waitingTime = (process[i].completed - process[i].arrival_time) - process[i].burst_time;
-    timeIndex[i].burstTime = process[i].burst_time;
-    process[i].actualStart = temp[i].actualStart;
-    timeIndex[i].initWaitingTime = process[i].actualStart - process[i].arrival_time;
+        timeIndex[i].waitingTime = (process[i].completed - process[i].arrival_time) - process[i].burst_time;
+        timeIndex[i].burstTime = process[i].burst_time;
+        process[i].actualStart = temp[i].actualStart;
+        timeIndex[i].initWaitingTime = process[i].actualStart - process[i].arrival_time;
 }
     return time;
 }
@@ -202,12 +208,11 @@ int priorityScheduling(Process process[], TimeIndex timeIndex[]) {
 }
 
 /*  Function name: sortQueue
-    Inputs: Process process[] - Array of processes
-            Process temp[] - 
+    Inputs: Process process[] - Array of processes.
+            Process temp[] - Copy of process array.
     Output: None
-    Description: sorts process based on arrival time and expected burst time,
-                 process is sorted by arrival time and then expected burst time of the new time.
-                
+    Description: This function sorts processes based on their estimated burst times, and executes 
+            them in that order.
 */
 void sortQueue(Process process[], Process temp[]) {
     int currentTime = 0;
@@ -237,11 +242,10 @@ void sortQueue(Process process[], Process temp[]) {
 }
 
 /*  Function name: sortSRTF
-    Inputs: Process process[] - Array of processes
-            Process temp[] - 
+    Inputs: Process process[] - Array of processes.
+            Process temp[] - Copy of process array.
     Output: None
-    Description: sorts process based on arrival time and burst time,
-                 process is sorted by arrival time and then burst time of the new time.
+    Description: Selects the process with the shortest remaining burst time.
 */
 void sortSRTF(Process process[], Process temp[]) {
     int currentTime = 0;
@@ -270,11 +274,10 @@ void sortSRTF(Process process[], Process temp[]) {
 }
 
 /*  Function name: sortPriority
-    Inputs: Process process[] - Array of processes
-            Process temp[] - 
+    Inputs: Process process[] - Array of processes.
+            Process temp[] - Copy of process array.
     Output: None
-    Description: sorts process based on arrival time and Priority,
-                 process is sorted by arrival time and then Priority time of the new time.
+    Description: Selects the process with the lowest priority value.
 */
 void sortPriority(Process process[], Process temp[]) {
     int currentTime = 0;
@@ -304,7 +307,16 @@ void sortPriority(Process process[], Process temp[]) {
     }
 }
 
-//finds shortest burst time and returns the index of that to run it's burst
+/*  Function name: findShortest
+    Inputs: Process temp[] - Array of processes
+            int time - uses current time to manage
+            which processes are ready and not completed. 
+    Output: shortest index - returns the index of the process with the 
+            lowest remaining time.
+    Description: Checks which processes are currently available to run, and out 
+            of the processes that are, returns the index of the process with the 
+            shortest remaining run time.
+*/
 int findShortest(Process temp[], int time) {
     int shortestIndex = -1;
     int shortestBurst = 60;
@@ -321,8 +333,13 @@ int findShortest(Process temp[], int time) {
     return shortestIndex; 
 }
 
-
-//copies 
+/*  Function name: copy_process
+    Inputs: Process src_process[] - Array of source processes
+            Process dest_process[] - Array of destination processes 
+    Output: None
+    Description: Copy the processes from the source to the destination 
+            array.
+*/
 static void copy_process(Process src_process[], Process dest_process[])
 {
     for (int i = 0; i < ARR_SIZE; i++)
@@ -333,10 +350,17 @@ static void copy_process(Process src_process[], Process dest_process[])
     return;
 }
 
-
+/*  Function name: runBurst
+    Inputs: Process process[] - Array of processes
+            TimeIndex timeIndex[] - Array of statistic time of each 
+                                    process 
+            int time - the clock time of the process
+    Output: the total time time it has taken to run the processes.
+    Description: The function runs the processes. Used in non pre-emptive
+            scheduling algorithms to reduce duplicate code.
+*/
 int runBurst(Process process[], TimeIndex timeIndex[], int time){
-
- for (int i = 0; i < ARR_SIZE; i++) {
+        for (int i = 0; i < ARR_SIZE; i++) {
             int arrivalTime = process[i].arrival_time;
             timeIndex[i].waitingTime = abs(arrivalTime - time);
             timeIndex[i].initWaitingTime = abs(arrivalTime - time);
