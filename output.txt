@@ -1,90 +1,90 @@
 
 
-Wed Dec  6 15:31:16 2023
+Wed Dec  6 20:53:08 2023
 
 $$$$$ STATISTIC RECORD OF FIRST-COME-FIRST-SERVE ALGORITHM $$$$$
 
-Total CPU utilization: 99.40%
+Total CPU utilization: 96.46%
 --------------------------------------------------------
-Total burst time: 330.00 seconds
+Total burst time: 218.00 units of time
 --------------------------------------------------------
-Mean Turnaround time: 169.90 clock ticks per process
+Mean turnaround time: 124.90 units of time per process
 --------------------------------------------------------
-Mean wait time: 136.90 per process
+Mean wait time: 103.10 units of time per process
 --------------------------------------------------------
-Mean response time: 136.90 seconds
+Mean response time: 103.10 units of time per process
 --------------------------------------------------------
-Meanhroughput: 0.030120 processes per clock tick
+Mean throughput: 0.044248 processes per units of time
 --------------------------------------------------------
 
 
-Wed Dec  6 15:31:21 2023
+Wed Dec  6 20:55:18 2023
 
 $$$$$ STATISTIC RECORD OF SHORTEST-JOB-FIRST $$$$$
 
-Total CPU utilization: 99.40%
+Total CPU utilization: 96.46%
 --------------------------------------------------------
-Total burst time: 330.00 seconds
+Total burst time: 218.00 units of time
 --------------------------------------------------------
-Mean Turnaround time: 154.00 clock ticks per process
+Mean turnaround time: 95.00 units of time per process
 --------------------------------------------------------
-Mean wait time: 121.00 per process
+Mean wait time: 73.20 units of time per process
 --------------------------------------------------------
-Mean response time: 121.00 seconds
+Mean response time: 73.20 units of time per process
 --------------------------------------------------------
-Meanhroughput: 0.030120 processes per clock tick
---------------------------------------------------------
-
-
-Wed Dec  6 15:31:26 2023
-
-$$$$$ STATISTIC RECORD OF SHORTEST-REMAINING-TIME $$$$$
-
-Total CPU utilization: 95.10%
---------------------------------------------------------
-Total burst time: 330.00 seconds
---------------------------------------------------------
-Mean Turnaround time: 178.30 clock ticks per process
---------------------------------------------------------
-Mean wait time: 145.30 per process
---------------------------------------------------------
-Mean response time: 145.30 seconds
---------------------------------------------------------
-Meanhroughput: 0.028818 processes per clock tick
+Mean throughput: 0.044248 processes per units of time
 --------------------------------------------------------
 
 
-Wed Dec  6 15:31:31 2023
-
-$$$$$ STATISTIC RECORD OF PRIORITY-SCHEDULING ALGORITHM $$$$$
-
-Total CPU utilization: 99.40%
---------------------------------------------------------
-Total burst time: 330.00 seconds
---------------------------------------------------------
-Mean Turnaround time: 172.40 clock ticks per process
---------------------------------------------------------
-Mean wait time: 139.40 per process
---------------------------------------------------------
-Mean response time: 139.40 seconds
---------------------------------------------------------
-Meanhroughput: 0.030120 processes per clock tick
---------------------------------------------------------
-
-
-Wed Dec  6 15:31:39 2023
+Wed Dec  6 20:56:33 2023
 
 $$$$$ STATISTIC RECORD OF ROUND ROBIN ALGORITHM $$$$$
 
-Total CPU utilization: 99.40%
+Total CPU utilization: 96.46%
 --------------------------------------------------------
-Total burst time: 330.00 seconds
+Total burst time: 218.00 units of time
 --------------------------------------------------------
-Mean Turnaround time: 277.70 clock ticks per process
+Mean turnaround time: 142.80 units of time per process
 --------------------------------------------------------
-Mean wait time: 244.70 per process
+Mean wait time: 121.00 units of time per process
 --------------------------------------------------------
-Mean response time: 244.70 seconds
+Mean response time: 29.60 units of time per process
 --------------------------------------------------------
-Meanhroughput: 0.030120 processes per clock tick
+Mean throughput: 0.044248 processes per units of time
+--------------------------------------------------------
+
+
+Wed Dec  6 20:57:35 2023
+
+$$$$$ STATISTIC RECORD OF SHORTEST-REMAINING-TIME $$$$$
+
+Total CPU utilization: 96.46%
+--------------------------------------------------------
+Total burst time: 218.00 units of time
+--------------------------------------------------------
+Mean turnaround time: 82.80 units of time per process
+--------------------------------------------------------
+Mean wait time: 61.00 units of time per process
+--------------------------------------------------------
+Mean response time: 44.60 units of time per process
+--------------------------------------------------------
+Mean throughput: 0.044248 processes per units of time
+--------------------------------------------------------
+
+
+Wed Dec  6 20:58:14 2023
+
+$$$$$ STATISTIC RECORD OF PRIORITY-SCHEDULING ALGORITHM $$$$$
+
+Total CPU utilization: 96.46%
+--------------------------------------------------------
+Total burst time: 218.00 units of time
+--------------------------------------------------------
+Mean turnaround time: 114.60 units of time per process
+--------------------------------------------------------
+Mean wait time: 92.80 units of time per process
+--------------------------------------------------------
+Mean response time: 92.80 units of time per process
+--------------------------------------------------------
+Mean throughput: 0.044248 processes per units of time
 --------------------------------------------------------

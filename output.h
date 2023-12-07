@@ -47,6 +47,7 @@ static int sumOfBurstTime(Process process[]);
    processes to the screen
 */
 void makeGantChart(Process process[], int choice);
+
 /* Function name: printData
 
    Inputs: FILE *filePtr - printing to file 
@@ -66,6 +67,18 @@ void makeGantChart(Process process[], int choice);
 void printData(FILE *filePtr, int choice, float cpuUtilization, float burstTime, float throughput, 
                float MeanTurnaroundTime, float meanWaitTime, float meanResponseTime);
 
-static void print_RR_data(Process process[], float scale[]);
+
+/* Function name: print_RR_data
+
+   Inputs: Process process [] - Array of processes
+           float scale [] - Array of calculated scale for each process
+   Outputs: None
+   Description: The function prints the calculated data retrieved from 
+   processes to the screen and the files.
+*/
+// static void print_PR_data(Process process[], float scale[]);
+
+static void print_data(Process process[], float scale[], int choice);
+
 
 #endif
