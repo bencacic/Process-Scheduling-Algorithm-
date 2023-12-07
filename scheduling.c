@@ -205,10 +205,9 @@ int priorityScheduling(Process process[], TimeIndex timeIndex[]) {
     Inputs: Process process[] - Array of processes
             Process temp[] - 
     Output: None
-    Description: see some stuff here so you can't understand
-                 what we wrote in here and up because you are not going
-                 to read it, and it is nothing important to you. so if you want
-                 you can read it and
+    Description: sorts process based on arrival time and expected burst time,
+                 process is sorted by arrival time and then expected burst time of the new time.
+                
 */
 void sortQueue(Process process[], Process temp[]) {
     int currentTime = 0;
@@ -241,7 +240,8 @@ void sortQueue(Process process[], Process temp[]) {
     Inputs: Process process[] - Array of processes
             Process temp[] - 
     Output: None
-    Description: 
+    Description: sorts process based on arrival time and burst time,
+                 process is sorted by arrival time and then burst time of the new time.
 */
 void sortSRTF(Process process[], Process temp[]) {
     int currentTime = 0;
@@ -273,7 +273,8 @@ void sortSRTF(Process process[], Process temp[]) {
     Inputs: Process process[] - Array of processes
             Process temp[] - 
     Output: None
-    Description: 
+    Description: sorts process based on arrival time and Priority,
+                 process is sorted by arrival time and then Priority time of the new time.
 */
 void sortPriority(Process process[], Process temp[]) {
     int currentTime = 0;
@@ -303,6 +304,7 @@ void sortPriority(Process process[], Process temp[]) {
     }
 }
 
+//finds shortest burst time and returns the index of that to run it's burst
 int findShortest(Process temp[], int time) {
     int shortestIndex = -1;
     int shortestBurst = 60;
@@ -319,6 +321,8 @@ int findShortest(Process temp[], int time) {
     return shortestIndex; 
 }
 
+
+//copies 
 static void copy_process(Process src_process[], Process dest_process[])
 {
     for (int i = 0; i < ARR_SIZE; i++)
@@ -328,6 +332,7 @@ static void copy_process(Process src_process[], Process dest_process[])
 
     return;
 }
+
 
 int runBurst(Process process[], TimeIndex timeIndex[], int time){
 
